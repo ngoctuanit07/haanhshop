@@ -1,29 +1,6 @@
-<p align="center">
-    <img src="https://s-cart.org/logo.png" width="150">
-</p>
-<p align="center">Free open source e-commerce for business use laravel framework<br>
-<b>composer create-project lanhktc/s-cart</b></p>
-<p align="center">
- <a href="https://s-cart.org">Home page</a> | <a href="https://demo.s-cart.org">Demo</a> | <a href="https://demo.s-cart.org/system_admin">Demo admin</a> | <a href="https://s-cart.org/installation.html">Installation</a> | <a href="https://s-cart.org/video-guide.html">Video Guide</a>
-</p>
-<p align="center">
-<a href="https://packagist.org/packages/lanhktc/s-cart"><img src="https://poser.pugx.org/lanhktc/s-cart/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/lanhktc/s-cart"><img src="https://poser.pugx.org/lanhktc/s-cart/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/lanhktc/s-cart"><img src="https://poser.pugx.org/lanhktc/s-cart/license.svg" alt="License"></a>
-</p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/product-list.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/product-detail.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/cart.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/dashboard.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/admin-permission.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/order-manager.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/product-edit.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/extension.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/backup-restore.jpg"></p>
-<p align="center"><img src="https://s-cart.org/images/screen/v30/layout.jpg"></p>
 
-
-## About S-cart
+<p align="center">CMS Ecommerce of author john nguyen use laravel framework<br>
+## About CMS
 Free Open source E-commerce use Laravel framework for Business
 
 ## Technology
@@ -31,7 +8,7 @@ Free Open source E-commerce use Laravel framework for Business
 - Back-end <a href="http://laravel-admin.org">Laravel Admin</a>
 - In addition, s-cart also integrates other free open source libraries.
 
-## List Functions of S-cart
+## List Functions of CMS
 
 ======= SHOPPING =======
 
@@ -131,17 +108,3 @@ OR manual installation:
     DB_USERNAME=root
     DB_PASSWORD=
 ```
-
-Step5:
-
-NOTE: Please <b>remove</b> or <b>rename</b> file public/install.php so others cannot access it.
-
-Step6:
-- Access to url admin: your-domain/system_admin.
-- User/pass <code><b>admin</b>/<b>admin</b></code>
-
-## Demo:
-
-- Font-end : http://demo.s-cart.org
-- Back-end: http://demo.s-cart.org/system_admin   <code>User/pass: test/123456</code>
-
