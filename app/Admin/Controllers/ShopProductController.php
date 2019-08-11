@@ -152,7 +152,8 @@ class ShopProductController extends Controller
 
                 $form->text($language->code . '__name', trans('product.product_name'))->rules('required', ['required' => trans('validation.required')])->default(!empty($langDescriptions->name) ? $langDescriptions->name : null);
                 $form->text($language->code . '__keyword', trans('language.admin.keyword'))->default(!empty($langDescriptions->keyword) ? $langDescriptions->keyword : null);
-                $form->textarea($language->code . '__description', trans('language.admin.description'))->rules('max:300', ['max' => trans('validation.max')])->default(!empty($langDescriptions->description) ? $langDescriptions->description : null);
+                $form->textarea($language->code . '__description', trans('language.admin.description'))->rules('max:30000', ['max' => trans('validation.max')])->default(!empty($langDescriptions->description) ? $langDescriptions->description : null);
+				$form->textarea($language->code . '__thanhphan', trans('language.admin.thanhphan'))->rules('max:30000', ['max' => trans('validation.max')])->default(!empty($langDescriptions->thanhphan) ? $langDescriptions->thanhphan : null);
                 $form->ckeditor($language->code . '__content', trans('language.admin.content'))->default(!empty($langDescriptions->content) ? $langDescriptions->content : null)->rules('required');
                 $arrFields[] = $language->code . '__name';
                 $arrFields[] = $language->code . '__keyword';
@@ -266,6 +267,7 @@ SCRIPT;
             foreach ($languages as $key => $language) {
                 $arrData[$language->code]['name']        = request($language->code . '__name');
                 $arrData[$language->code]['keyword']     = request($language->code . '__keyword');
+				$arrData[$language->code]['thanhphan']     = request($language->code . '__thanhphan');
                 $arrData[$language->code]['description'] = request($language->code . '__description');
                 $arrData[$language->code]['content']     = request($language->code . '__content');
 

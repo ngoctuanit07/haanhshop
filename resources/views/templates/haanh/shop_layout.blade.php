@@ -16,8 +16,6 @@
     <meta name="robots" content="noindex,nofollow"/>
     <meta property="og:title" content="{{ $title??$configsGlobal['title'] }}"/>
     <meta property="og:description" content="{{ $description??$configsGlobal['description'] }}"/>
-    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=4.9.10'
-          type='text/css' media='all'/>
     <!--Module meta -->
 @isset ($layouts['meta'])
     @foreach ( $layouts['meta']  as $layout)
@@ -39,7 +37,6 @@
     <script src="{{ asset(SITE_THEME_ASSET.'/js/html5shiv.js')}}"></script>
     <script src="{{ asset(SITE_THEME_ASSET.'/js/respond.min.js')}}"></script>
     <![endif]-->
-    <link href="{{ asset(SITE_THEME_ASSET.'/css/popup.css')}}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{ asset(SITE_THEME_ASSET.'/images/ico/favicon.ico')}}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
@@ -83,15 +80,21 @@
 <script src="{{ asset(SITE_THEME_ASSET.'/js/jquery.scrollUp.min.js')}}"></script>
 <script src="{{ asset(SITE_THEME_ASSET.'/js/jquery.prettyPhoto.js')}}"></script>
 <script src="{{ asset(SITE_THEME_ASSET.'/js/main.js')}}"></script>
+<script src="{{ asset(SITE_THEME_ASSET.'/js/hoverIntent.min.js')}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
-<script src="{{ asset(SITE_THEME_ASSET.'/js/popup.js')}}"></script>
-
 @stack('scripts')
 
 <script type="text/javascript">
     function formatNumber(num) {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
     }
+    $("ul.header-nav-main").mouseover(function(){
+        $("ul.header-nav-main > li").addClass("current-dropdown");//.removeClass("closed")
+    })
+
+    $("ul.header-nav-main").mouseout(function(){
+        $("ul.header-nav-main > li").removeClass("current-dropdown");//.removeClass("closed")
+    })
 
     $('#shipping').change(function () {
         $('#total').html(formatNumber(parseInt({{ Cart::subtotal() }}) + parseInt($('#shipping').val())));

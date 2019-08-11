@@ -31,7 +31,7 @@
 
             <!-- Right Elements -->
             <div class="flex-col hide-for-medium flex-right">
-                <ul class="header-nav header-nav-main nav nav-right  nav-size-large">
+               <!-- <ul class="header-nav header-nav-main nav nav-right  nav-size-large">
                     <li id="menu-item-50" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-41 current_page_item menu-item-has-children active  menu-item-50 has-dropdown"><a href="http://tinhbotnghe.giaodienwebmau.com/" class="nav-top-link">Sản phẩm<i class="icon-angle-down"></i></a>
                         <ul class="nav-dropdown nav-dropdown-default">
                             <li id="menu-item-190" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-190"><a href="http://tinhbotnghe.giaodienwebmau.com/nano-curcumin/">Nano Curcumin</a></li>
@@ -47,6 +47,49 @@
                         </ul>
                     </li>
                     <li id="menu-item-207" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-207"><a href="http://tinhbotnghe.giaodienwebmau.com/nano-curcumin/" class="nav-top-link">Nano Curcumin</a></li>
+                    <li class="html custom html_topbar_left">
+                        <div class="phone">
+                            <a href="tel:0931 302 865">
+                                <div class="phr"> <span>Hotline</span> <span class="apnr"><i class="fa fa-phone" aria-hidden="true"></i> 0931 302 865</span></div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>-->
+                <ul class="header-nav header-nav-main nav nav-right  nav-size-large">
+                    <li><a href="{{ route('home') }}" class="active">{{ trans('language.home') }}</a></li>
+                    <li class="dropdown"><a href="#">{{ trans('language.shop') }}<i class="fa fa-angle-down"></i></a>
+                        <ul role="menu" class="sub-menu nav-dropdown nav-dropdown-default">
+                            <li><a href="{{ route('products') }}">{{ trans('language.all_product') }}</a></li>
+                            <li><a href="{{ route('compare') }}">{{ trans('language.compare') }}</a></li>
+                            <li><a href="{{ route('cart') }}">{{ trans('language.cart_title') }}</a></li>
+                            <li><a href="{{ route('categories') }}">{{ trans('language.categories') }}</a></li>
+                            <li><a href="{{ route('brands') }}">{{ trans('language.brands') }}</a></li>
+                            <li><a href="{{ route('vendors') }}">{{ trans('language.vendors') }}</a></li>
+                        </ul>
+                    </li>
+
+                    @if (!empty($configs['News']))
+                        <li><a href="{{ route('news') }}">{{ trans('language.blog') }}</a></li>
+                    @endif
+
+                    @if (!empty($configs['Content']))
+                        <li class="dropdown"><a href="#">{{ trans('language.cms_category') }}<i class="fa fa-angle-down"></i></a>
+                            <ul role="menu" class="sub-menu nav-dropdown nav-dropdown-default">
+                                @php
+                                    $cmsCategories = (new \App\Modules\Cms\Models\CmsCategory)->where('status',1)->get();
+                                @endphp
+                                @foreach ($cmsCategories as $cmsCategory)
+                                    <li><a href="{{ $cmsCategory->getUrl() }}">{{ $cmsCategory->title }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endif
+
+                    @if (!empty($layoutsUrl['menu']))
+                        @foreach ($layoutsUrl['menu'] as $url)
+                            <li><a {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ url($url->url) }}">{{ trans($url->name) }}</a></li>
+                        @endforeach
+                    @endif
                     <li class="html custom html_topbar_left">
                         <div class="phone">
                             <a href="tel:0931 302 865">

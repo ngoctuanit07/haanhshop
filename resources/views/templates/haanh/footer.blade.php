@@ -1,7 +1,7 @@
 <!-- FOOTER 1 -->
 <div class="footer-widgets footer footer-1">
     <div class="row dark large-columns-3 mb-0">
-        <div id="text-2" class="col pb-0 widget widget_text"><span class="widget-title">Tinh Bột Nghệ An Bình</span>
+        <div id="text-2" class="col pb-0 widget widget_text"><span class="widget-title">Tinh Bột Nghệ Hà Anh</span>
             <div class="is-divider small"></div>
             <div class="textwidget">
                 <p><strong>ĐỊA CHỈ SẢN XUẤT</strong></p>
@@ -81,7 +81,7 @@
 
         <div class="footer-primary pull-left">
             <div class="copyright-footer">
-                Copyright 2019 © Tinh Bột Nghệ An Bình. All Rights Reserved.
+                Copyright 2019 © Tinh Bột Nghệ Hà Anh. All Rights Reserved.
             </div>
         </div>
         <!-- .left -->
