@@ -1,142 +1,109 @@
-  <header id="header"><!--header-->
-    <div class="header_top"><!--header_top-->
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="contactinfo">
-              <ul class="nav nav-pills">
-                <li><a href="#"><i class="fa fa-phone"></i> {{ $configsGlobal['phone'] }}</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i> {{ $configsGlobal['email'] }}</a></li>
-              </ul>
+<div class="header-wrapper">
+    <div id="masthead" class="header-main nav-dark">
+        <div class="header-inner flex-row container logo-left medium-logo-center" role="navigation">
+
+            <!-- Logo -->
+            <div id="logo" class="flex-col logo">
+                <!-- Header logo -->
+                <a href="https://haanhshop.xyz/" title="Tinh bột nghệ nguyên chất An Bình – 90% Khách hàng hài lòng - Một trang web mới sử dụng WordPress" rel="home">
+                    <img width="176" height="83" src="{{ asset(SITE_THEME_ASSET.'/images/logo-tinh-bot-nghe-an-binh.png')}}" class="header_logo header-logo" alt="Tinh bột nghệ nguyên chất An Bình – 90% Khách hàng hài lòng">
+                    <img width="176" height="83" src="{{ asset(SITE_THEME_ASSET.'/images/logo-tinh-bot-nghe-an-binh.png')}}" class="header-logo-dark" alt="Tinh bột nghệ nguyên chất An Bình – 90% Khách hàng hài lòng"></a>
             </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="btn-group pull-right">
-              <div class="btn-group locale">
-                @if (count($languages)>1)
-                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"><img src="{{ asset(PATH_FILE.'/'.$languages[app()->getLocale()]['icon']) }}" style="height: 25px;">
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  @foreach ($languages as $key => $language)
-                    <li><a href="{{ url('locale/'.$key) }}"><img src="{{ asset(PATH_FILE.'/'.$language['icon']) }}" style="height: 25px;"></a></li>
-                  @endforeach
+
+            <!-- Mobile Left Elements -->
+            <div class="flex-col show-for-medium flex-left">
+                <ul class="mobile-nav nav nav-left ">
+                    <li class="nav-icon has-icon">
+                        <a href="#" data-open="#main-menu" data-pos="left" data-bg="main-menu-overlay" data-color="" class="is-small" aria-controls="main-menu" aria-expanded="false">
+
+                            <i class="icon-menu"></i>
+                        </a>
+                    </li>
                 </ul>
-                @endif
-              </div>
-              @if (count($currencies)>1)
-               <div class="btn-group locale">
-                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                  {{ \Helper::getCurrency()['name'] }}
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  @foreach ($currencies as $key => $currency)
-                    <li><a href="{{ url('currency/'.$currency->code) }}">{{ $currency->name }}</a></li>
-                  @endforeach
+            </div>
+
+            <!-- Left Elements -->
+            <div class="flex-col hide-for-medium flex-left
+            flex-grow">
+                <ul class="header-nav header-nav-main nav nav-left  nav-size-large">
                 </ul>
-              </div>
-              @endif
             </div>
-          </div>
+
+            <!-- Right Elements -->
+            <div class="flex-col hide-for-medium flex-right">
+                <ul class="header-nav header-nav-main nav nav-right  nav-size-large">
+                    <li id="menu-item-50" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-41 current_page_item menu-item-has-children active  menu-item-50 has-dropdown"><a href="http://tinhbotnghe.giaodienwebmau.com/" class="nav-top-link">Sản phẩm<i class="icon-angle-down"></i></a>
+                        <ul class="nav-dropdown nav-dropdown-default">
+                            <li id="menu-item-190" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-190"><a href="http://tinhbotnghe.giaodienwebmau.com/nano-curcumin/">Nano Curcumin</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-item-191" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-191"><a href="http://tinhbotnghe.giaodienwebmau.com/cong-dung-cua-tinh-bot-nghe/" class="nav-top-link">Công dụng</a></li>
+                    <li id="menu-item-202" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children  menu-item-202 has-dropdown"><a href="http://tinhbotnghe.giaodienwebmau.com/cach-uong-tinh-bot-nghe/" class="nav-top-link">Cách Sử dụng<i class="icon-angle-down"></i></a>
+                        <ul class="nav-dropdown nav-dropdown-default">
+                            <li id="menu-item-203" class="menu-item menu-item-type-post_type menu-item-object-post  menu-item-203"><a href="http://tinhbotnghe.giaodienwebmau.com/uong-tinh-bot-nghe-lam-dep-da/">Uống tinh bột nghệ làm đẹp da</a></li>
+                            <li id="menu-item-204" class="menu-item menu-item-type-post_type menu-item-object-post  menu-item-204"><a href="http://tinhbotnghe.giaodienwebmau.com/cach-uong-tinh-bot-nghe-de-giam-can/">Cách uống tinh bột nghệ để giảm cân</a></li>
+                            <li id="menu-item-205" class="menu-item menu-item-type-post_type menu-item-object-post  menu-item-205"><a href="http://tinhbotnghe.giaodienwebmau.com/cach-uong-tinh-bot-nghe-tang-can/">Cách uống tinh bột nghệ tăng cân</a></li>
+                            <li id="menu-item-206" class="menu-item menu-item-type-post_type menu-item-object-post  menu-item-206"><a href="http://tinhbotnghe.giaodienwebmau.com/cach-uong-tinh-bot-nghe-sau-sinh/">Cách uống tinh bột nghệ sau sinh</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-item-207" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-207"><a href="http://tinhbotnghe.giaodienwebmau.com/nano-curcumin/" class="nav-top-link">Nano Curcumin</a></li>
+                    <li class="html custom html_topbar_left">
+                        <div class="phone">
+                            <a href="tel:0931 302 865">
+                                <div class="phr"> <span>Hotline</span> <span class="apnr"><i class="fa fa-phone" aria-hidden="true"></i> 0931 302 865</span></div>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Mobile Right Elements -->
+            <div class="flex-col show-for-medium flex-right">
+                <ul class="mobile-nav nav nav-right ">
+                    <li class="header-search header-search-dropdown has-icon has-dropdown menu-item-has-children">
+                        <a href="#" class="is-small"><i class="fa fa-search"></i></a>
+                        <ul class="nav-dropdown nav-dropdown-default">
+                            <li class="header-search-form search-form html relative has-icon">
+                                <div class="header-search-form-wrapper">
+                                    <div class="searchform-wrapper ux-search-box relative form- is-normal">
+                                        <form method="get" class="searchform" action="http://tinhbotnghe.giaodienwebmau.com/" role="search">
+                                            <div class="flex-row relative">
+                                                <div class="flex-col flex-grow">
+                                                    <input type="search" class="search-field mb-0" name="s" value="" id="s" placeholder="Search…" autocomplete="off">
+                                                </div>
+                                                <!-- .flex-col -->
+                                                <div class="flex-col">
+                                                    <button type="submit" class="ux-search-submit submit-button secondary button icon mb-0">
+                                                        <i class="fa fa-search"></i> </button>
+                                                </div>
+                                                <!-- .flex-col -->
+                                            </div>
+                                            <!-- .flex-row -->
+                                            <div class="live-search-results text-left z-top">
+                                                <div class="autocomplete-suggestions" style="position: absolute; display: none; max-height: 300px; z-index: 9999;"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- .nav-dropdown -->
+                    </li>
+                </ul>
+            </div>
+
         </div>
-      </div>
-    </div><!--/header_top-->
-    <div class="header-middle"><!--header-middle-->
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="logo pull-left">
-              <a href="{{ route('home') }}"><img style="width: 150px;" src="{{ asset(SITE_LOGO) }}" alt="" /></a>
-            </div>
-          </div>
-          <div class="col-sm-8">
-            <div class="shop-menu pull-right">
-              <ul class="nav navbar-nav">
+        <!-- .header-inner -->
 
-                <li><a href="{{ route('wishlist') }}"><span  class="cart-qty  shopping-wishlist" id="shopping-wishlist">{{ Cart::instance('wishlist')->count() }}</span><i class="fa fa-star"></i> {{ trans('language.wishlist') }}</a></li>
-                <li><a href="{{ route('compare') }}"><span  class="cart-qty shopping-compare" id="shopping-compare">{{ Cart::instance('compare')->count() }}</span><i class="fa fa-crosshairs"></i> {{ trans('language.compare') }}</a></li>
-                <li><a href="{{ route('cart') }}"><span class="cart-qty shopping-cart" id="shopping-cart">{{ $carts['count'] }}</span><i class="fa fa-shopping-cart"></i> {{ trans('language.cart_title') }}</a>
-                </li>
-                @guest
-                <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> {{ trans('language.login') }}</a></li>
-                @else
-                <li><a href="{{ route('member.index') }}"><i class="fa fa-user"></i> {{ trans('language.account') }}</a></li>
-                <li><a href="{{ route('logout') }}" rel="nofollow" onclick="event.preventDefault();
-                   document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> {{ trans('language.logout') }}</a></li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-                </form>
-                @endguest
-
-              </ul>
-            </div>
-          </div>
+        <!-- Header divider -->
+        <div class="container">
+            <div class="top-divider full-width"></div>
         </div>
-      </div>
-    </div><!--/header-middle-->
-
-    <div class="header-bottom"><!--header-bottom-->
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-9">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-            </div>
-            <div class="mainmenu pull-left">
-              <ul class="nav navbar-nav collapse navbar-collapse">
-                <li><a href="{{ route('home') }}" class="active">{{ trans('language.home') }}</a></li>
-                <li class="dropdown"><a href="#">{{ trans('language.shop') }}<i class="fa fa-angle-down"></i></a>
-                    <ul role="menu" class="sub-menu">
-                        <li><a href="{{ route('products') }}">{{ trans('language.all_product') }}</a></li>
-                        <li><a href="{{ route('compare') }}">{{ trans('language.compare') }}</a></li>
-                        <li><a href="{{ route('cart') }}">{{ trans('language.cart_title') }}</a></li>
-                        <li><a href="{{ route('categories') }}">{{ trans('language.categories') }}</a></li>
-                        <li><a href="{{ route('brands') }}">{{ trans('language.brands') }}</a></li>
-                        <li><a href="{{ route('vendors') }}">{{ trans('language.vendors') }}</a></li>
-                    </ul>
-                </li>
-
-                @if (!empty($configs['News']))
-                <li><a href="{{ route('news') }}">{{ trans('language.blog') }}</a></li>
-                @endif
-
-                @if (!empty($configs['Content']))
-                <li class="dropdown"><a href="#">{{ trans('language.cms_category') }}<i class="fa fa-angle-down"></i></a>
-                    <ul role="menu" class="sub-menu">
-                      @php
-                        $cmsCategories = (new \App\Modules\Cms\Models\CmsCategory)->where('status',1)->get();
-                      @endphp
-                      @foreach ($cmsCategories as $cmsCategory)
-                        <li><a href="{{ $cmsCategory->getUrl() }}">{{ $cmsCategory->title }}</a></li>
-                      @endforeach
-                    </ul>
-                </li>
-                @endif
-
-                  @if (!empty($layoutsUrl['menu']))
-                    @foreach ($layoutsUrl['menu'] as $url)
-                      <li><a {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ url($url->url) }}">{{ trans($url->name) }}</a></li>
-                    @endforeach
-                  @endif
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="search_box pull-right">
-              <form id="searchbox" method="get" action="{{ route('search') }}" >
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="{{ trans('language.search_form.keyword') }}..." name="keyword">
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!--/header-bottom-->
-  </header><!--/header-->
+    </div>
+    <!-- .header-main -->
+    <div class="header-bg-container fill">
+        <div class="header-bg-image fill"></div>
+        <div class="header-bg-color fill"></div>
+    </div>
+    <!-- .header-bg-container -->
+</div>

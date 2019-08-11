@@ -112,13 +112,14 @@ class ConfigGlobalController extends Controller
         $form->ignore($arrFields);
 //end language
         $form->text('phone', trans('language.config.phone'));
+		$form->text('google_map', trans('language.config.map'));
         $form->text('long_phone', trans('language.config.long_phone'));
         $form->text('time_active', trans('language.config.time_active'));
         $form->text('address', trans('language.config.address'));
         $form->text('email', trans('language.config.email'));
         $form->select('locale', trans('language.config.language'))->options($arrLanguage);
-        $form->select('currency', trans('language.config.currency'))->options($currencies)->rules('required');
-        $form->select('timezone', trans('language.config.timezone'))->options($timezones)->rules('required');
+        $form->select('currency', trans('language.config.currency'))->options($currencies);//->rules('required');
+        $form->select('timezone', trans('language.config.timezone'))->options($timezones);//->rules('required');
         $form->ckeditor('maintain_content', trans('language.config.maintain_content'));
         $form->disableViewCheck();
         $form->disableEditingCheck();

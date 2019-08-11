@@ -1,85 +1,93 @@
-<!--Footer-->
-
-<!--Module top footer -->
-  @isset ($layouts['footer'])
-      @foreach ( $layouts['footer']  as $layout)
-        @if ($layout->page == null ||  $layout->page =='*' || $layout->page =='' || (isset($layout_page) && in_array($layout_page, $layout->page) ) )
-          @if ($layout->type =='html')
-            {!! $layout->text !!}
-          @elseif($layout->type =='view')
-            @if (view()->exists('blockView.'.$layout->text))
-             @include('blockView.'.$layout->text)
-            @endif
-          @elseif($layout->type =='module')
-            {!! (new $layout->text)->render() !!}
-          @endif
-        @endif
-      @endforeach
-  @endisset
-<!--//Module top footer -->
-
-  <footer id="footer"><!--Footer-->
-    <div class="footer-widget">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-3">
-            <div class="single-widget">
-              <h2><a href="{{ route('home') }}"><img style="max-width: 150px;" src="{{  asset(SITE_LOGO) }}"></a></h2>
-             <ul class="nav nav-pills nav-stacked">
-               <li>{{ $configsGlobal['title'] }}</li>
-             </ul>
+<!-- FOOTER 1 -->
+<div class="footer-widgets footer footer-1">
+    <div class="row dark large-columns-3 mb-0">
+        <div id="text-2" class="col pb-0 widget widget_text"><span class="widget-title">Tinh Bột Nghệ An Bình</span>
+            <div class="is-divider small"></div>
+            <div class="textwidget">
+                <p><strong>ĐỊA CHỈ SẢN XUẤT</strong></p>
+                <ul>
+                    <li>Cơ sở SX Tinh Bột Nghệ An Bình</li>
+                    <li>Thôn 1, Xã ĐăK Cấm, TP. Kon Tum</li>
+                </ul>
+                <p><strong>ĐỊA CHỈ PHÂN PHỐI</strong></p>
+                <ul>
+                    <li>Tầng 1, 106A Nguyên Hồng, P.11, Q. Bình Thạnh, Hồ Chí Minh</li>
+                </ul>
             </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="single-widget">
-              <h2>{{ trans('language.my_account') }}</h2>
-              <ul class="nav nav-pills nav-stacked">
-                @if (!empty($layoutsUrl['footer']))
-                  @foreach ($layoutsUrl['footer'] as $url)
-                    <li><a {{ ($url->target =='_blank')?'target=_blank':''  }} href="{{ url($url->url) }}">{{ trans($url->name) }}</a></li>
-                  @endforeach
-                @endif
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="single-widget">
-              <h2>{{ trans('language.about') }}</h2>
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">{{ trans('language.shop_info.address') }}: {{ $configsGlobal['address'] }}</a></li>
-                <li><a href="#">{{ trans('language.shop_info.hotline') }}: {{ $configsGlobal['long_phone'] }}</a></li>
-                <li><a href="#">{{ trans('language.shop_info.email') }}: {{ $configsGlobal['email'] }}</a></li>
-            </ul>
-            </div>
-          </div>
-          <div class="col-sm-3">
-            <div class="single-widget">
-              <h2>{{ trans('language.subscribe.title') }}</h2>
-              <form action="{{ route('subscribe') }}" method="post" class="searchform">
-                @csrf
-
-                <input type="email" name="subscribe_email" required="required" placeholder="{{ trans('language.subscribe.subscribe_email') }}">
-                <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-                <p>{{ trans('language.subscribe.subscribe_des') }}</p>
-              </form>
-            </div>
-          </div>
-
         </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row">
-          <p class="pull-left">Copyright © 2018 <a href="{{ config('scart.homepage') }}">{{ config('scart.name') }} {{ config('scart.version') }}</a> Inc. All rights reserved.</p>
-          <p class="pull-right">Hosted by  <span><a target="_blank" href="https://giaiphap247.com">GiaiPhap247</a></span></p>
-            <!--
-            S-Cart is free open source and you are free to remove the powered by S-cart if you want, but its generally accepted practise to make a small donation.
-            Please donate via PayPal to https://www.paypal.me/LeLanh or Email: fastle.ktc@gmail.com
-            //-->
+        <div id="nav_menu-3" class="col pb-0 widget widget_nav_menu"><span
+                    class="widget-title">Thông tin quan trọng</span>
+            <div class="is-divider small"></div>
+            <div class="menu-menu-thong-tin-quan-trong-container">
+                <ul id="menu-menu-thong-tin-quan-trong" class="menu">
+                    <li id="menu-item-212"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-212"><a
+                                href="http://tinhbotnghe.giaodienwebmau.com/cach-uong-tinh-bot-nghe/">Cách uống tinh bột
+                            nghệ</a></li>
+                    <li id="menu-item-213"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-213"><a
+                                href="http://tinhbotnghe.giaodienwebmau.com/cong-dung-cua-tinh-bot-nghe/">Công dụng của
+                            Tinh Bột Nghệ</a></li>
+                    <li id="menu-item-214"
+                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-214"><a
+                                href="http://tinhbotnghe.giaodienwebmau.com/uong-tinh-bot-nghe-lam-dep-da/">Uống tinh
+                            bột nghệ làm đẹp da</a></li>
+                    <li id="menu-item-215"
+                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-215"><a
+                                href="http://tinhbotnghe.giaodienwebmau.com/cach-uong-tinh-bot-nghe-de-giam-can/">Cách
+                            uống tinh bột nghệ để giảm cân</a></li>
+                    <li id="menu-item-216"
+                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-216"><a
+                                href="http://tinhbotnghe.giaodienwebmau.com/cach-uong-tinh-bot-nghe-tang-can/">Cách uống
+                            tinh bột nghệ tăng cân</a></li>
+                    <li id="menu-item-217"
+                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-217"><a
+                                href="http://tinhbotnghe.giaodienwebmau.com/cach-uong-tinh-bot-nghe-sau-sinh/">Cách uống
+                            tinh bột nghệ sau sinh</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
+        <div id="nav_menu-4" class="col pb-0 widget widget_nav_menu"><span class="widget-title">Thông tin chung</span>
+            <div class="is-divider small"></div>
+            <div class="menu-menu-thong-tin-chung-container">
+                <ul id="menu-menu-thong-tin-chung" class="menu">
+                    <li id="menu-item-218"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-218"><a href="#">Mua
+                            tinh bột nghệ ở đâu</a></li>
+                    <li id="menu-item-219"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-219"><a href="#">Cách
+                            bảo quản tinh bột nghệ</a></li>
+                    <li id="menu-item-220"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-220"><a href="#">Uống
+                            TBN có nóng không</a></li>
+                    <li id="menu-item-221"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-221"><a href="#">Cách
+                            phân biệt tinh bột nghệ</a></li>
+                    <li id="menu-item-222"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-222"><a href="#">Cách
+                            bảo quản tinh bột nghệ</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </footer>
-<!--//Footer-->
+    <!-- end row -->
+</div>
+<!-- footer 1 -->
+
+<!-- FOOTER 2 -->
+
+<div class="absolute-footer dark medium-text-center small-text-center">
+    <div class="container clearfix">
+
+        <div class="footer-primary pull-left">
+            <div class="copyright-footer">
+                Copyright 2019 © Tinh Bột Nghệ An Bình. All Rights Reserved.
+            </div>
+        </div>
+        <!-- .left -->
+    </div>
+    <!-- .container -->
+</div>
+<!-- .absolute-footer -->
+<a href="#top" class="back-to-top button invert plain is-outline hide-for-medium icon circle fixed bottom z-1"
+   id="top-link"><i class="icon-angle-up"></i></a>

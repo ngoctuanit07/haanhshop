@@ -242,6 +242,7 @@ return [
     ],
     'config'             => [
         'logo'             => 'Logo',
+		'map'				=> 'Bản đồ',
         'title'            => 'Tên website',
         'description'      => 'Mô tả',
         'keyword'          => 'Từ khóa',
