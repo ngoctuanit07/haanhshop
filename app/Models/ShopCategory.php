@@ -134,6 +134,8 @@ class ShopCategory extends Model
 
     }
 
+
+
 /**
  * [getCategoriesAll description]
  * @param  boolean $all [description]
@@ -151,6 +153,7 @@ class ShopCategory extends Model
                 $q->where('lang_id', $lang_id);
             }])->where('status', 1)->sort($sortBy, $sortOrder)->get()->groupBy('parent');
         }
+       // print_r($listFullCategory); die();
         return $listFullCategory;
     }
 
@@ -190,6 +193,8 @@ class ShopCategory extends Model
         $categories  = $categories ?? $this->getCategoriesAll();
         $tree        = $tree ?? [];
         $lisCategory = $categories[$parent];
+
+
         foreach ($lisCategory as $category) {
             $tree[$category->id] = $st . $category->getName();
             if (!empty($categories[$category->id])) {
@@ -198,7 +203,7 @@ class ShopCategory extends Model
                 $st = '';
             }
         }
-
+       // print_r($tree); die('222');
         return $tree;
     }
 
@@ -222,12 +227,12 @@ class ShopCategory extends Model
     {
         if ($this->image) {
 
-            if (!file_exists(PATH_FILE . '/thumb/' . $this->image)) {
+            if (!file_exists(SITE_PATH_FILE . '/thumb/' . $this->image)) {
                 return $this->getImage();
             } else {
-                if (!file_exists(PATH_FILE . '/thumb/' . $this->image)) {
+                if (!file_exists(SITE_PATH_FILE . '/thumb/' . $this->image)) {
                 } else {
-                    return PATH_FILE . '/thumb/' . $this->image;
+                    return SITE_PATH_FILE . '/thumb/' . $this->image;
                 }
             }
         } else {
@@ -244,10 +249,10 @@ class ShopCategory extends Model
     {
         if ($this->image) {
 
-            if (!file_exists(PATH_FILE . '/' . $this->image)) {
+            if (!file_exists(SITE_PATH_FILE . '/' . $this->image)) {
                 return 'images/no-image.jpg';
             } else {
-                return PATH_FILE . '/' . $this->image;
+                return SITE_PATH_FILE . '/' . $this->image;
             }
         } else {
             return 'images/no-image.jpg';
@@ -257,7 +262,7 @@ class ShopCategory extends Model
 
     public function getUrl()
     {
-        return route('category', ['name' => Helper::strToUrl(empty($this->name) ? 'no-name' : $this->name), 'id' => $this->id]);
+        return route('category', ['name' => Helper::strToUrl($this->name), 'id' => $this->id]);
     }
 
 //Fields language
@@ -299,7 +304,7 @@ class ShopCategory extends Model
 
     public function processDescriptions()
     {
-        return $this->descriptions->keyBy('lang_id')[$this->lang_id] ?? [];
+        return $this->descriptions->keyBy('lang_id')[$this->lang_id];
     }
 
 }

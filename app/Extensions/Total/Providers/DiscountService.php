@@ -277,34 +277,34 @@ class DiscountService
         if ($check['error'] == 1) {
             $error = 1;
             if ($check['msg'] == 'error_code_not_exist') {
-                $msg = trans('promotion.process.invalid');
+                $msg = trans('language.promotion.process.invalid');
             } elseif ($check['msg'] == 'error_code_cant_use') {
-                $msg = trans('promotion.process.over');
+                $msg = trans('language.promotion.process.over');
             } elseif ($check['msg'] == 'error_code_expired_disabled') {
-                $msg = trans('promotion.process.expire');
+                $msg = trans('language.promotion.process.expire');
             } elseif ($check['msg'] == 'error_user_used') {
-                $msg = trans('promotion.process.used');
+                $msg = trans('language.promotion.process.used');
             } elseif ($check['msg'] == 'error_uID_input') {
-                $msg = trans('promotion.process.user_id_invalid');
+                $msg = trans('language.promotion.process.user_id_invalid');
             } elseif ($check['msg'] == 'error_login') {
-                $msg = trans('promotion.process.must_login');
+                $msg = trans('language.promotion.process.must_login');
             } else {
-                $msg = trans('promotion.process.undefined');
+                $msg = trans('language.promotion.process.undefined');
             }
         } else {
             $content = $check['content'];
             if ($content['type'] === 1) {
                 //Point use in my page
                 $error = 1;
-                $msg   = trans('promotion.process.not_allow');
+                $msg   = trans('language.promotion.process.not_allow');
             } else {
                 $arrType = [
-                    '0' => trans('promotion.cash'),
-                    '1' => trans('promotion.point'),
-                    '2' => trans('promotion.%'),
+                    '0' => trans('language.promotion.cash'),
+                    '1' => trans('language.promotion.point'),
+                    '2' => trans('language.promotion.%'),
                 ];
                 $error = 0;
-                $msg   = trans('promotion.process.completed');
+                $msg   = trans('language.promotion.process.completed');
                 session(['Discount' => $code]);
 
                 $objects   = array();

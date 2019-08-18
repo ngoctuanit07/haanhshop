@@ -1,160 +1,151 @@
 @extends(SITE_THEME.'.shop_layout')
 
 @section('center')
-          <div class="product-details"><!--product-details-->
-            <div class="col-sm-5">
+    @php
 
+        $modelCategory = (new \App\Models\ShopCategory);
+        $categoriesTop = $modelCategory->getCategoriesTop();
+    @endphp
+    <section class="group_page">
+        <div class="container">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="cat_left">
 
-              <div id="similar-product" class="carousel slide" data-ride="carousel">
-                  <!-- Wrapper for slides -->
-                  <div class="carousel-inner">
+                    <div class="input-group form_search">
+                        <form action="{{ route('search') }}" method="get"
+                              enctype="multipart/form-data">
+                            <div class="input-group">
+                                <input type="text" class="form-control"
+                                       placeholder="{{ trans('language.search_form.keyword') }}..." name="keyword">
+                                <input type="submit" value="Tìm"/>
+                            </div>
+                        </form>
+                    </div>
+                    @foreach ($categoriesTop as $key =>  $category)
+                        <a class="{{\Request::fullUrl() ==  $category->getUrl() ? 'active' : '' }}"
+                           href="{{ $category->getUrl() }}">{{ $category->name }}</a>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="cat_right">
+                    <h1>{{ $product->name }}</h1>
+                    <div class="product_detail_left">
 
-                  <div id="similar-product" class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                      <div class="view-product item active"  data-slide-number="0">
-                        <img src="{{ asset($product->getImage()) }}" alt="">
-                      </div>
-                    @if ($product->images->count())
-                       @foreach ($product->images as $key=>$image)
-                        <div class="view-product item"  data-slide-number="{{ $key + 1 }}">
-                          <img src="{{ asset($image->getImage()) }}" alt="">
+                        <a id="Zoom-1" class="MagicZoom" href="{{ asset($product->getImage()) }}"
+                           data-options="zoomWidth:250px; zoomHeight:250px; hint: always; textHoverZoomHint: Rê chuột; textClickZoomHint: Click image to zoom in; variableZoom: true"
+                        >
+                            <img srcset="{{ asset($product->getImage()) }}" src="{{ asset($product->getImage()) }}"
+                                 alt="{{ asset($product->getImage()) }}"/>
+                        </a>
+                        @if ($product->images->count())
+                            @foreach ($product->images as $key=>$image)
+                                <div class="thumb">
+                                    <a data-zoom-id="Zoom-1"
+                                       href="{{ asset($image->getImage()) }}"
+                                       data-image="{{ asset($image->getImage()) }}"
+                                    >
+                                        <img srcset="{{ asset($image->getImage()) }}"
+                                             src="{{ asset($image->getImage()) }}"/>
+                                    </a>
+                                </div>
+                            @endforeach
+                        @endif
+
+                    </div>
+
+                    <div class="product_detail_right">
+                        <p>
+                            Mã sản phẩm: <b class="color_red"> {{ $product->sku }}</b>
+                        </p>
+                        <div class="tb-social-buttons">
+                            <a class="icon-fb"
+                               href="https://www.facebook.com/sharer/sharer.php?u={{$product->getUrl()}}"
+                               onclick="window.open(this.href, 'facebook-share', 'width=580,height=296');return false;"
+                               title="Chia sẽ bài viết trên Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="icon-gplus" href="https://plus.google.com/share?url={{$product->getUrl()}}"
+                               onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;"
+                               title="Chia sẽ bài viết trên Google +">
+                                <i class="fab fa-google-plus-g"></i>
+                            </a>
                         </div>
-                        @endforeach
-                    @endif
-                    </div>
-                  </div>
-            @if ($product->images->count())
-                  <!-- Controls -->
-                  <a class="left item-control" href="#similar-product" data-slide="prev">
-                  <i class="fa fa-angle-left"></i>
-                  </a>
-                  <a class="right item-control" href="#similar-product" data-slide="next">
-                  <i class="fa fa-angle-right"></i>
-                  </a>
-              @endif
-                  </div>
-              </div>
 
-            </div>
+                        <p><i class="fas fa-signal fa-fw"></i> <b>{{ trans('language.product.availability') }}:</b>
+                            @if ($configs['show_date_available'] && $product->date_available >= date('Y-m-d H:i:s'))
+                                {{ $product->date_available }}
+                            @else
+                                {{ trans('language.product.in_stock') }}
+                            @endif
+                        </p>
+                        <p>
+                            <i class="fas fa-phone fa-fw"></i> Hỗ trợ:
+                            <a href="tel:0988607425" title="Hotline đặt hàng">0988607425</a> -
+                            <a href="tel:0976522437" title="Hotline hỗ trợ">0976522437</a>
+                        </p>
+                        <p>
+                            <i class="fas fa-truck fa-fw"></i> Vận chuyển:
+                            <span class="p_d_ccc">Giao hàng trên toàn quốc</span>
+                        </p>
+                        <p>
+                            <i class="far fa-credit-card fa-fw"></i> Thanh toán:
+                            <span class="p_d_ccc">Chuyển khoản và nhận hàng sau 2 - 3 ngày</span>
+                        </p>
 
-        <form id="buy_block" action="{{ route('postCart') }}" method="post">
-          {{ csrf_field() }}
-          <input type="hidden" name="product_id" value="{{ $product->id }}" />
-            <div class="col-sm-7">
-              <div class="product-information"><!--/product-information-->
-                @if ($product->price != $product->getPrice())
-                <img src="{{ asset(SITE_THEME_ASSET.'/images/home/sale2.png') }}" class="newarrival" alt="" />
-                @elseif($product->type == 1)
-                <img src="{{ asset(SITE_THEME_ASSET.'/images/home/new2.png') }}" class="newarrival" alt="" />
-                @endif
-                <h2>{{ $product->name }}</h2>
-                <p>SKU: {{ $product->sku }}</p>
-                  {!! $product->showPrice() !!}
-                <span>
-                  <label>{{ trans('product.quantity') }}:</label>
-                  <input type="number" name="qty" value="1" />
-                  <button type="submit" class="btn btn-fefault cart">
-                    <i class="fa fa-shopping-cart"></i>
-                    {{trans('language.add_to_cart')}}
-                  </button>
-                </span>
-                @if ($product->attGroupBy())
-                <div class="form-group">
-                  @foreach ($product->attGroupBy() as $keyAtt => $attributes)
-                    @if ($attributesGroup[$keyAtt]['type'] =='select')
-                    <div class="input-group">
-                      <label>{{ $attributesGroup[$keyAtt]['name'] }}:</label>
-                       <select class="form-control" style="max-width: 100px;" name="attribute[{{ $keyAtt }}]">
-                        @foreach ($attributes as $attribute)
-                          <option value="{{ $attribute->name }}" {{ ($k ==0)?'selected':'' }}> {{ $attribute->name }}</option>
-                        @endforeach
-                      </select>
+                        <p>
+                            <b>{{ trans('language.product.overview') }}:</b>
+                        <p>{{ $product->description }}</p>
+                        </p>
+
+                        <p>
+                            Giá:
+                            <a href="tel:0988607425" title="Liên hệ tư vấn mua hàng">
+                                <b class="pro_price"> {!! $product->showPrice() !!}</b>
+                            </a>
+                        </p>
+                        <div class="add_to_cart">
+                            <input type="number" name="txtQty" value="1" id="txtQty"/>
+                            <a  href="#test-popup" class="add_cart open-popup-link buynow">
+                                <i class="fas fa-shopping-cart"></i>
+                               Mua ngay
+                            </a>
+
+                        </div>
                     </div>
-                    @elseif($attributesGroup[$keyAtt]['type'] =='radio')
-                     <div class="input-group">
-                      <label>{{ $attributesGroup[$keyAtt]['name'] }}:</label><br>
-                      @foreach ($attributes as $k => $attribute)
-                        <label class="radio-inline"><input type="radio" name="attribute[{{ $keyAtt }}]" value="{{ $attribute->name }}" {{ ($k ==0)?'checked':'' }}> {{ $attribute->name }}</label>
-                      @endforeach
+                    <div class="detail_editor">
+                        <b class="title_product_info">
+                            Thông tin sản phẩm
+                        </b>
+                        <div class="content_product_info">
+                            {!! $product->content !!}
+                        </div>
                     </div>
-                    @endif
-                  @endforeach
                 </div>
-                @endif
-                <p><b>{{ trans('product.availability') }}:</b>
-                @if ($configs['show_date_available'] && $product->date_available >= date('Y-m-d H:i:s'))
-                {{ $product->date_available }}
-                @else
-                {{ trans('product.in_stock') }}
-                @endif
-              </p>
-                <p><b>{{ trans('product.type') }}:</b> New</p>
-                <p><b>{{ trans('product.brand') }}:</b> {{ empty($product->brand->name)?'None':$product->brand->name }}</p>
-                <div class="short-description">
-                  <b>{{ trans('product.overview') }}:</b>
-                  <p>{{ $product->description }}</p>
+            </div>
+        </div>
+        @if ($productsToCategory->count())
+            <div class="productRelated container">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h3>{{ trans('language.recommended_items') }}</h3>
                 </div>
-              <div class="addthis_inline_share_toolbox_yprn"></div>
-              </div><!--/product-information-->
-            </div>
-          </div><!--/product-details-->
-        </form>
-
-          <div class="category-tab shop-details-tab"><!--category-tab-->
-            <div class="col-sm-12">
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#details" data-toggle="tab">{{ trans('product.description') }}</a></li>
-                <li><a href="#reviews" data-toggle="tab">{{ trans('product.comment') }}</a></li>
-              </ul>
-            </div>
-            <div class="tab-content">
-              <div class="tab-pane fade  active in" id="details" >
-                {!! $product->content !!}
-              </div>
-
-              <div class="tab-pane fade" id="reviews" >
-                <div class="col-sm-12">
-<div class="fb-comments" data-href="{{ $product->getUrl() }}" data-numposts="5"></div>
-                </div>
-              </div>
-
-            </div>
-          </div><!--/category-tab-->
-@if ($productsToCategory->count())
-          <div class="recommended_items"><!--recommended_items-->
-            <h2 class="title text-center">{{ trans('language.recommended_items') }}</h2>
-
-            <div id="recommended-item-carousel" class="carousel slide">
-              <div class="carousel-inner">
-               @foreach ($productsToCategory as  $key => $product_rel)
-                @if ($key % 4 == 0)
-                  <div class="item {{  ($key ==0)?'active':'' }}">
-                @endif
-                  <div class="col-sm-3">
-                    <div class="product-image-wrapper product-single">
-                      <div class="single-products   product-box-{{ $product_rel->id }}">
-                          <div class="productinfo text-center">
-                            <a href="{{ $product_rel->getUrl() }}"><img src="{{ asset($product_rel->getThumb()) }}" alt="{{ $product_rel->name }}" /></a>
-                        {!! $product_rel->showPrice() !!}
-                            <a href="{{ $product_rel->getUrl() }}"><p>{{ $product_rel->name }}</p></a>
-                          </div>
-                          @if ($product_rel->price != $product_rel->getPrice())
-                          <img src="{{ asset(SITE_THEME_ASSET.'/images/home/sale.png') }}" class="new" alt="" />
-                          @elseif($product_rel->type == 1)
-                          <img src="{{ asset(SITE_THEME_ASSET.'/images/home/new.png') }}" class="new" alt="" />
-                          @endif
-                      </div>
+                @foreach ($productsToCategory as  $key => $product_rel)
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                        <div class="productRelated_child">
+                            <a href="{{ $product_rel->getUrl() }}" title="{{ $product_rel->name }}">
+                                <img src="{{ asset($product_rel->getThumb()) }}" alt="{{ $product_rel->name }}"/>
+                                <b>{{ $product_rel->name }}</b>
+                                <span>{!! $product_rel->showPrice() !!}</span>
+                            </a>
+                        </div>
                     </div>
-                  </div>
-                @if ($key % 4 == 3)
-                  </div>
-                @endif
-               @endforeach
-              </div>
+                @endforeach
+
             </div>
-          </div><!--/recommended_items-->
-@endif
+        @endif
+
+
+    </section>
 
 
 @endsection
@@ -165,7 +156,4 @@
 @push('styles')
 
 @endpush
-@push('scripts')
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bd09e60b8c26cab"></script>
-@endpush
+

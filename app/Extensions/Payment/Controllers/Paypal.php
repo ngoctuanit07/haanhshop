@@ -17,9 +17,6 @@ class Paypal extends \App\Http\Controllers\Controller
     protected $configCode = 'Payment';
     protected $configKey  = 'Paypal';
     public $title;
-    public $version;
-    public $auth;
-    public $link;
     public $image;
     const ALLOW  = 1;
     const DENIED = 0;
@@ -32,9 +29,6 @@ class Paypal extends \App\Http\Controllers\Controller
         $this->title     = trans($this->configType . '/' . $this->configCode . '/' . $this->configKey . '.title');
         $this->image     = 'images/' . $this->configType . '/' . $this->configCode . '/' . $this->configKey . '.png';
         $this->paypalSvc = new PayPalSvc;
-        $this->version   = '1.0';
-        $this->auth      = 'Naruto';
-        $this->link      = 'https://s-cart.org';
     }
 
     public function getData()
@@ -49,9 +43,6 @@ class Paypal extends \App\Http\Controllers\Controller
             'code'       => $this->configKey,
             'image'      => $this->image,
             'permission' => self::ALLOW,
-            'version'    => $this->version,
-            'auth'       => $this->auth,
-            'link'       => $this->link,
         ];
         return $arrData;
     }

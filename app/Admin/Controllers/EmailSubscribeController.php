@@ -1,5 +1,16 @@
 <?php
 #app/Admin/Controller/EmailSubscribeController.php
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -20,26 +31,32 @@ class EmailSubscribeController extends Controller
      *
      * @return Content
      */
-
-    public function index(Content $content)
+    public function index()
     {
-        return $content
-            ->header(trans('language.subscribe.manager'))
-            ->description('description')
-            ->body($this->grid());
+        return Admin::content(function (Content $content) {
+
+            $content->header(trans('language.subscribe.manager'));
+            $content->description(' ');
+
+            $content->body($this->grid());
+        });
     }
+
     /**
      * Edit interface.
      *
      * @param $id
      * @return Content
      */
-    public function edit($id, Content $content)
+    public function edit($id)
     {
-        return $content
-            ->header(trans('language.subscribe.manager'))
-            ->description('description')
-            ->body($this->form()->edit($id));
+        return Admin::content(function (Content $content) use ($id) {
+
+            $content->header(trans('language.subscribe.manager'));
+            $content->description(' ');
+
+            $content->body($this->form()->edit($id));
+        });
     }
 
     /**
@@ -65,35 +82,21 @@ class EmailSubscribeController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Subscribe);
-        $grid->id('ID')->sortable();
-        $grid->email(trans('language.subscribe.email'))->sortable();
-        $grid->disableRowSelector();
-        $grid->disableFilter();
-        $grid->tools(function ($tools) {
-            $tools->disableRefreshButton();
-        });
-        $grid->disableExport();
-        $grid->actions(function ($actions) {
-            $actions->disableView();
-        });
-        $grid->model()->orderBy('id', 'desc');
-        return $grid;
-    }
+        return Admin::grid(Subscribe::class, function (Grid $grid) {
 
-    /**
-     * Show interface.
-     *
-     * @param mixed $id
-     * @param Content $content
-     * @return Content
-     */
-    public function show($id, Content $content)
-    {
-        return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+            $grid->id('ID')->sortable();
+            $grid->email(trans('language.subscribe.email'))->sortable();
+            $grid->disableRowSelector();
+            $grid->disableFilter();
+            $grid->tools(function ($tools) {
+                $tools->disableRefreshButton();
+            });
+            $grid->disableExport();
+            $grid->actions(function ($actions) {
+                $actions->disableView();
+            });
+            $grid->model()->orderBy('id', 'desc');
+        });
     }
 
     /**
@@ -103,15 +106,24 @@ class EmailSubscribeController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Subscribe);
-
-        $form->email('email', trans('language.subscribe.email'));
-        $form->disableViewCheck();
-        $form->disableEditingCheck();
-        $form->tools(function (Form\Tools $tools) {
-            $tools->disableView();
+        return Admin::form(Subscribe::class, function (Form $form) {
+            $form->email('email', trans('language.subscribe.email'));
+            $form->disableViewCheck();
+            $form->disableEditingCheck();
+            $form->tools(function (Form\Tools $tools) {
+                $tools->disableView();
+            });
         });
+    }
 
-        return $form;
+    public function show($id)
+    {
+        return Admin::content(function (Content $content) use ($id) {
+            $content->header('');
+            $content->description('');
+            $content->body(Admin::show(Subscribe::findOrFail($id), function (Show $show) {
+                $show->id('ID');
+            }));
+        });
     }
 }

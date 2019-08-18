@@ -16,13 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::group(
-    [
-        'middleware' => 'api',
-        'namespace'  => '\App\Modules\Api',
-    ],
-    function ($router) {
-        $router->get('/product', 'Product@index')->name('api.product');
-        $router->get('/order', 'Order@index')->name('api.order');
-    });

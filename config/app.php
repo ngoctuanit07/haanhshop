@@ -53,7 +53,6 @@ return [
      */
 
     'url'             => env('APP_URL', 'http://localhost'),
-    'asset_url'       => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -111,6 +110,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Logging Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the log settings for your application. Out of
+    | the box, Laravel uses the Monolog PHP logging library. This gives
+    | you a variety of powerful log handlers / formatters to utilize.
+    |
+    | Available Settings: "single", "daily", "syslog", "errorlog"
+    |
+     */
+
+    'log'             => env('APP_LOG', 'single'),
+
+    'log_level'       => env('APP_LOG_LEVEL', 'debug'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -149,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Package Service Providers...
@@ -163,10 +180,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        /*
-         * S-Cart
-         */
-        App\Providers\ScartServiceProvider::class,
+        App\Scart\ScartServiceProvider::class,
+		Spatie\Sitemap\SitemapServiceProvider::class,
+		//HTMLMin\HTMLMin\Facades\HTMLMin::class,
+		Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+		Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
 
     ],
 
@@ -216,14 +234,19 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-        //App
         'Cart'         => Gloudemans\Shoppingcart\Facades\Cart::class,
         'PDF'          => Barryvdh\DomPDF\Facade::class,
         'Image'        => Intervention\Image\Facades\Image::class,
+        'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
         //scart
         'Helper'       => App\Scart\Helper::class,
         'FindClass'    => App\Scart\FindClass::class,
-        'ProcessData'  => App\Scart\ProcessData\Boot::class,
+		'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
+		'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+		'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
+		// or
+		'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+		'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
     ],
 
     'debug_blacklist' => [

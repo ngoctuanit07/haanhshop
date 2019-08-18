@@ -31,7 +31,6 @@ class Order extends General
  */
     public function index()
     {
-        $this->validationApi();
         if ($this->apiName == 'api_order_list') {
             return $this->list();
         }
@@ -45,7 +44,6 @@ class Order extends General
  * @return [type] [description]
  */
     function list() {
-        $this->validationApi();
         $limit        = $this->limit;
         $start        = $this->start;
         $orderBy      = $this->orderBy;
@@ -78,7 +76,6 @@ class Order extends General
  */
     public function detail($order_id)
     {
-        $this->validationApi();
         $query = ShopOrder::with('details')->where('id', $order_id)->first();
         if ($query) {
             $hiddenFields = empty($this->hiddenFields) ? [] : explode(',', $this->hiddenFields);

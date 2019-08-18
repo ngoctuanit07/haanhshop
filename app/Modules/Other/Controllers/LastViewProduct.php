@@ -14,9 +14,6 @@ class LastViewProduct extends \App\Http\Controllers\GeneralController
     protected $namespace  = '';
 
     public $title;
-    public $version;
-    public $auth;
-    public $link;
     const ON  = 1;
     const OFF = 0;
     public function __construct()
@@ -26,9 +23,6 @@ class LastViewProduct extends \App\Http\Controllers\GeneralController
         $this->title     = trans($this->configType . '/' . $this->configCode . '/' . $this->configKey . '.title');
         app('view')->prependNamespace($this->configType,
             base_path('app/' . $this->configType . '/' . $this->configCode . '/Views'));
-        $this->version = '1.0';
-        $this->auth    = 'Naruto';
-        $this->link    = 'https://s-cart.org';
 
     }
     public function getData()
@@ -39,11 +33,8 @@ class LastViewProduct extends \App\Http\Controllers\GeneralController
     public function processData()
     {
         $arrData = [
-            'title'   => $this->title,
-            'code'    => $this->configKey,
-            'version' => $this->version,
-            'auth'    => $this->auth,
-            'link'    => $this,
+            'title' => $this->title,
+            'code'  => $this->configKey,
         ];
         return $arrData;
     }
@@ -79,7 +70,7 @@ class LastViewProduct extends \App\Http\Controllers\GeneralController
         if (!$process) {
             $return = ['error' => 1, 'msg' => 'Error when uninstall'];
         }
-        (new Layout)->where('text', $this->namespace)->delete();
+        (new Layout)->where('content', $this->namespace)->delete();
         return $return;
     }
     public function enable()
@@ -145,7 +136,7 @@ class LastViewProduct extends \App\Http\Controllers\GeneralController
                 'position' => 'left',
                 'page'     => '',
                 'type'     => 'module',
-                'text'     => $this->namespace,
+                'content'  => $this->namespace,
                 'status'   => self::ON, //1- Enable extension; 0 - Disable
                 'sort'     => 0,
             ]

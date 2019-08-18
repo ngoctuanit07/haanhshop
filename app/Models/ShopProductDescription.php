@@ -9,5 +9,5 @@ class ShopProductDescription extends Model
     protected $primaryKey = null;
     public $timestamps    = false;
     public $table         = 'shop_product_description';
-    protected $fillable   = ['lang_id', 'name', 'description', 'keyword', 'content', 'shop_product_id'];
+    protected $fillable   = ['lang_id', 'name', 'description', 'keyword','thanhphan', 'content', 'shop_product_id'];
 }

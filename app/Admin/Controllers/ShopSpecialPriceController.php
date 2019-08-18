@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -72,34 +82,34 @@ class ShopSpecialPriceController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new ShopSpecialPrice);
+        return Admin::grid(ShopSpecialPrice::class, function (Grid $grid) {
 
-        $grid->id(trans('language.admin.sort'))->sortable();
-        $grid->product(trans('language.admin.product'))->display(function ($product) {
-            return $product['name'] . "<br>(SKU: " . $product['sku'] . ")";
+            $grid->id(trans('language.admin.sort'))->sortable();
+            $grid->product(trans('language.admin.product'))->display(function ($product) {
+                return $product['name'] . "<br>(SKU: " . $product['sku'] . ")";
+            });
+            $grid->price(trans('language.admin.special_price'))->display(function ($price) {
+                return number_format($price);
+            });
+            $grid->date_start(trans('language.admin.date_start'))->display(function ($date) {
+                return ($date) ?? '<span style="color:red">NULL</span>';
+            })->sortable();
+            $grid->date_end(trans('language.admin.date_end'))->display(function ($date) {
+                return ($date) ?? '<span style="color:red">NULL</span>';
+            })->sortable();
+            $grid->comment(trans('language.admin.comment'));
+            $grid->status(trans('language.admin.status'))->switch();
+            $grid->created_at(trans('language.admin.created_at'));
+            $grid->model()->orderBy('id', 'desc');
+            $grid->disableExport();
+            $grid->disableFilter();
+            $grid->actions(function ($actions) {
+                $actions->disableView();
+            });
+            $grid->tools(function ($tools) {
+                $tools->disableRefreshButton();
+            });
         });
-        $grid->price(trans('language.admin.special_price'))->display(function ($price) {
-            return number_format($price);
-        });
-        $grid->date_start(trans('language.admin.date_start'))->display(function ($date) {
-            return ($date) ?? '<span style="color:red">NULL</span>';
-        })->sortable();
-        $grid->date_end(trans('language.admin.date_end'))->display(function ($date) {
-            return ($date) ?? '<span style="color:red">NULL</span>';
-        })->sortable();
-        $grid->comment(trans('language.admin.comment'));
-        $grid->status(trans('language.admin.status'))->switch();
-        $grid->created_at(trans('language.admin.created_at'));
-        $grid->disableExport();
-        $grid->disableFilter();
-        $grid->actions(function ($actions) {
-            $actions->disableView();
-        });
-        $grid->tools(function ($tools) {
-            $tools->disableRefreshButton();
-        });
-        $grid->model()->orderBy('id', 'desc');
-        return $grid;
     }
 
     /**
@@ -110,30 +120,29 @@ class ShopSpecialPriceController extends Controller
     protected function form()
     {
         Admin::script($this->jsProcess());
-        $form = new Form(new ShopSpecialPrice);
+        return Admin::form(ShopSpecialPrice::class, function (Form $form) {
+            $products = ShopProduct::getArrayProductName();
+            $form->select('product_id', trans('language.admin.product'))->options($products)->rules(function ($form) {
+                return 'required|unique:shop_special_price,product_id,' . $form->model()->id . ',id';
+            });
 
-        $products = ShopProduct::getArrayProductName();
-        $form->select('product_id', trans('language.admin.product'))->options($products)->rules(function ($form) {
-            return 'required|unique:shop_special_price,product_id,' . $form->model()->id . ',id';
-        });
-
-        $form->html('
+            $form->html('
         <div class="input-group">
         <span class="input-group-addon">Bit</span><input disabled style="width: 120px; text-align: right;" type="text" id="price-old"  value="0" class="form-control price">
         </div>', trans('language.admin.origin_price'));
 
-        $form->currency('off', trans('language.admin.discount_percent'))->symbol('%')->options(['digits' => 0])->default(0);
-        $form->currency('price', trans('language.admin.special_price'))->symbol('')->options(['digits' => 0])->default(0);
-        $form->switch('status', trans('language.admin.status'));
-        $form->datetime('date_start', trans('language.admin.date_start'));
-        $form->datetime('date_end', trans('language.admin.date_end'));
-        $form->textarea('comment', trans('language.admin.comment'));
-        $form->disableViewCheck();
-        $form->disableEditingCheck();
-        $form->tools(function (Form\Tools $tools) {
-            $tools->disableView();
+            $form->currency('off', trans('language.admin.discount_percent'))->symbol('%')->options(['digits' => 0])->default(0);
+            $form->currency('price', trans('language.admin.special_price'))->symbol('')->options(['digits' => 0])->default(0);
+            $form->switch('status', trans('language.admin.status'));
+            $form->datetime('date_start', trans('language.admin.date_start'));
+            $form->datetime('date_end', trans('language.admin.date_end'));
+            $form->textarea('comment', trans('language.admin.comment'));
+            $form->disableViewCheck();
+            $form->disableEditingCheck();
+            $form->tools(function (Form\Tools $tools) {
+                $tools->disableView();
+            });
         });
-        return $form;
     }
 
     public function jsProcess()
@@ -202,12 +211,15 @@ JS;
 
     }
 
-    public function show($id, Content $content)
+    public function show($id)
     {
-        return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+        return Admin::content(function (Content $content) use ($id) {
+            $content->header('');
+            $content->description('');
+            $content->body(Admin::show(ShopSpecialPrice::findOrFail($id), function (Show $show) {
+                $show->id('ID');
+            }));
+        });
     }
 
 }

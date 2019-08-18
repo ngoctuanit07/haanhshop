@@ -1,5 +1,16 @@
 <?php
 #app/Http/Admin/Controllers/ExtensionsController.php
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -20,10 +31,10 @@ class ExtensionsController extends Controller
     public function __construct()
     {
         $this->namespaceGroup = [
-            'shipping' => '\App\Extensions\Shipping\Controllers',
-            'payment'  => '\App\Extensions\Payment\Controllers',
-            'total'    => '\App\Extensions\Total\Controllers',
-            'other'    => '\App\Extensions\Other\Controllers',
+            'Shipping' => '\App\Extensions\Shipping\Controllers',
+            'Payment'  => '\App\Extensions\Payment\Controllers',
+            'Total'    => '\App\Extensions\Total\Controllers',
+            'Other'    => '\App\Extensions\Other\Controllers',
         ];
 
     }
@@ -38,7 +49,7 @@ class ExtensionsController extends Controller
             $body = $this->extensionsGroup($group);
         }
         return $content
-            ->header(trans('Extensions/language.manager'))
+            ->header(trans('language.extensions.manager'))
             ->description(' ')
             ->body($body);
     }
@@ -53,7 +64,7 @@ class ExtensionsController extends Controller
         $extensionsInstalled = \Helper::getExtensionsGroup($group, $onlyActive = false);
         $extensions          = \FindClass::classNames('Extensions', $group);
         $namespace           = $this->namespaceGroup[$group];
-        $title               = trans('Extensions/language.' . $group);
+        $title               = trans('language.extensions.' . $group);
         return $this->render($extensionsInstalled, $extensions, $namespace, $title, $group);
     }
 

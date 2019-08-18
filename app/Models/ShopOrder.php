@@ -55,25 +55,25 @@ class ShopOrder extends Model
         });
     }
 
-/**
- * [updateInfo description]
- * Don't apply for fields discount, shiping, received, cause
- * @param  [type] $order_id  [description]
- * @param  [type] $arrFields [description]
- * @return [type]            [description]
- */
+    /**
+     * [updateInfo description]
+     * Don't apply for fields discount, shiping, received, cause
+     * @param  [type] $order_id  [description]
+     * @param  [type] $arrFields [description]
+     * @return [type]            [description]
+     */
     public static function updateInfo($order_id, $arrFields)
     {
         return self::where('id', $order_id)->update($arrFields);
     }
 
-/**
- * Update status order
- * @param  [type]  $id     [description]
- * @param  integer $status [description]
- * @param  string  $msg    [description]
- * @return [type]          [description]
- */
+    /**
+     * Update status order
+     * @param  [type]  $id     [description]
+     * @param  integer $status [description]
+     * @param  string  $msg    [description]
+     * @return [type]          [description]
+     */
     public function updateStatus($id, $status = 0, $msg = '')
     {
         $uID   = auth()->user()->id ?? 0;

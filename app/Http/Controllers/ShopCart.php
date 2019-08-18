@@ -19,10 +19,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ShopCart extends GeneralController
 {
-    const ORDER_STATUS_NEW = 1;
-    const PAYMENT_UNPAID   = 1;
-    const SHIPPING_NOTSEND = 1;
-
     public function __construct()
     {
         parent::__construct();
@@ -207,7 +203,7 @@ class ShopCart extends GeneralController
     }
 
 /**
- * add to cart by post
+ * [postCart description]
  * @param  Request $request [description]
  * @return [type]           [description]
  */
@@ -228,18 +224,18 @@ class ShopCart extends GeneralController
                     'id'      => $product_id,
                     'name'    => $product->name,
                     'qty'     => $qty,
-                    'price'   => $product->getPrice($opt_sku),
+                    'price'   => (new ShopProduct)->getPrice($opt_sku),
                     'options' => $options,
                 )
             );
             return redirect()->route('cart')
                 ->with(
-                    ['message' => trans('cart.success', ['instance' => 'cart'])]
+                    ['message' => trans('language.cart.success', ['instance' => 'cart'])]
                 );
         } else {
             return redirect()->route('cart')
                 ->with(
-                    ['error' => trans('cart.dont_allow_sale')]
+                    ['error' => trans('language.cart.dont_allow_sale')]
                 );
         }
 
@@ -260,18 +256,25 @@ class ShopCart extends GeneralController
             return redirect()->route('login');
         } //
         $data = request()->all();
+        //print_r($data); die('3333');
         if (!$data) {
             return redirect()->route('cart');
         } else {
             $dataTotal = json_decode($data['dataTotal'], true);
             $address   = json_decode($data['address'], true);
             $payment   = $data['payment'];
-            $shipping  = $data['shipping'];
+           // $shipping  = $data['shipping'];
+
+           // print_r($shipping);
+            //print_r($payment);
+            //print_r($address);
+            //print_r($dataTotal);
+            //die('111');
         }
         try {
             //Process total
             $subtotal       = (new ShopOrderTotal)->sumValueTotal('subtotal', $dataTotal);
-            $shipping       = (new ShopOrderTotal)->sumValueTotal('shipping', $dataTotal); //sum shipping
+            //$shipping       = (new ShopOrderTotal)->sumValueTotal('shipping', $dataTotal); //sum shipping
             $discount       = (new ShopOrderTotal)->sumValueTotal('discount', $dataTotal); //sum discount
             $received       = (new ShopOrderTotal)->sumValueTotal('received', $dataTotal); //sum received
             $total          = (new ShopOrderTotal)->sumValueTotal('total', $dataTotal);
@@ -281,12 +284,12 @@ class ShopCart extends GeneralController
             $arrOrder['user_id'] = auth()->user()->id ?? 0;
 
             $arrOrder['subtotal']        = $subtotal;
-            $arrOrder['shipping']        = $shipping;
+           // $arrOrder['shipping']        = $shipping;
             $arrOrder['discount']        = $discount;
             $arrOrder['received']        = $received;
-            $arrOrder['payment_status']  = self::PAYMENT_UNPAID;
-            $arrOrder['shipping_status'] = self::SHIPPING_NOTSEND;
-            $arrOrder['status']          = self::ORDER_STATUS_NEW;
+            $arrOrder['payment_status']  = 0;
+            $arrOrder['shipping_status'] = 0;
+            $arrOrder['status']          = 0;
             $arrOrder['currency']        = \Helper::currencyCode();
             $arrOrder['exchange_rate']   = \Helper::currencyRate();
             $arrOrder['total']           = $total;
@@ -322,7 +325,7 @@ class ShopCart extends GeneralController
                 ShopOrderDetail::insert($arrDetail);
                 //If product out of stock
                 if (!$this->configs['product_buy_out_of_stock'] && $product->stock < $value->qty) {
-                    return redirect()->route('home')->with('error', trans('cart.over', ['item' => $product->sku]));
+                    return redirect()->route('home')->with('error', trans('language.cart.over', ['item' => $product->sku]));
                 } //
                 $product->stock -= $value->qty;
                 $product->sold += $value->qty;
@@ -349,19 +352,19 @@ class ShopCart extends GeneralController
                     $arrReturnModuleDiscount = json_decode($returnModuleDiscount, true);
                     if ($arrReturnModuleDiscount['error'] == 1) {
                         if ($arrReturnModuleDiscount['msg'] == 'error_code_not_exist') {
-                            $msg = trans('promotion.process.invalid');
+                            $msg = trans('language.promotion.process.invalid');
                         } elseif ($arrReturnModuleDiscount['msg'] == 'error_code_cant_use') {
-                            $msg = trans('promotion.process.over');
+                            $msg = trans('language.promotion.process.over');
                         } elseif ($arrReturnModuleDiscount['msg'] == 'error_code_expired_disabled') {
-                            $msg = trans('promotion.process.expire');
+                            $msg = trans('language.promotion.process.expire');
                         } elseif ($arrReturnModuleDiscount['msg'] == 'error_user_used') {
-                            $msg = trans('promotion.process.used');
+                            $msg = trans('language.promotion.process.used');
                         } elseif ($arrReturnModuleDiscount['msg'] == 'error_uID_input') {
-                            $msg = trans('promotion.process.user_id_invalid');
+                            $msg = trans('language.promotion.process.user_id_invalid');
                         } elseif ($arrReturnModuleDiscount['msg'] == 'error_login') {
-                            $msg = trans('promotion.process.must_login');
+                            $msg = trans('language.promotion.process.must_login');
                         } else {
-                            $msg = trans('promotion.process.undefined');
+                            $msg = trans('language.promotion.process.undefined');
                         }
                         return redirect()->route('cart')->with(['error_discount' => $msg]);
                     }
@@ -374,41 +377,7 @@ class ShopCart extends GeneralController
 
             //End discount
             DB::connection('mysql')->commit();
-
-            //Process paypal
-            if ($payment_method === 'Paypal') {
-                $data_payment = [];
-                foreach ($dataItems as $value) {
-                    $product        = ShopProduct::find($value->id);
-                    $data_payment[] =
-                        [
-                        'name'     => $value->name,
-                        'quantity' => $value->qty,
-                        'price'    => \Helper::currencyValue($value->price),
-                        'sku'      => $product->sku,
-                    ];
-                }
-                $data_payment[] =
-                    [
-                    'name'     => 'Shipping',
-                    'quantity' => 1,
-                    'price'    => $shipping,
-                    'sku'      => 'shipping',
-                ];
-                $data_payment[] =
-                    [
-                    'name'     => 'Discount',
-                    'quantity' => 1,
-                    'price'    => $discount,
-                    'sku'      => 'discount',
-                ];
-                $data_payment['order_id'] = $orderId;
-                $data_payment['currency'] = \Helper::currencyCode();
-                return redirect()->route('paypal')->with('data_payment', $data_payment);
-            } else {
-                return $this->completeOrder($orderId);
-            }
-
+            return $this->completeOrder($orderId);
             //
 
         } catch (\Exception $e) {
@@ -454,7 +423,7 @@ class ShopCart extends GeneralController
                     return response()->json(
                         [
                             'error' => 1,
-                            'msg'   => trans('cart.dont_allow_sale'),
+                            'msg'   => trans('language.cart.dont_allow_sale'),
                         ]
                     );
                 }
@@ -486,7 +455,7 @@ class ShopCart extends GeneralController
                     return response()->json(
                         [
                             'error' => 1,
-                            'msg'   => trans('cart.exist', ['instance' => $instance]),
+                            'msg'   => trans('language.cart.exist', ['instance' => $instance]),
                         ]
                     );
                 }
@@ -520,7 +489,7 @@ class ShopCart extends GeneralController
                 'instance'   => $instance,
                 'subtotal'   => $carts['subtotal'],
                 'html'       => $html,
-                'msg'        => trans('cart.success', ['instance' => ($instance == 'default') ? 'cart' : $instance]),
+                'msg'        => trans('language.cart.success', ['instance' => ($instance == 'default') ? 'cart' : $instance]),
             ]
         );
 
@@ -544,7 +513,7 @@ class ShopCart extends GeneralController
             return response()->json(
                 [
                     'error' => 1,
-                    'msg'   => trans('cart.over', ['item' => $product->sku]),
+                    'msg'   => trans('language.cart.over', ['item' => $product->sku]),
                 ]);
         } else {
             Cart::update($rowId, ($new_qty) ? $new_qty : 0);
@@ -667,12 +636,12 @@ class ShopCart extends GeneralController
             if ($checkContent || $checkContentCustomer) {
                 $orderDetail = '';
                 $orderDetail .= '<tr>
-                                    <td>' . trans('email.order.sort') . '</td>
-                                    <td>' . trans('email.order.sku') . '</td>
-                                    <td>' . trans('email.order.name') . '</td>
-                                    <td>' . trans('email.order.price') . '</td>
-                                    <td>' . trans('email.order.qty') . '</td>
-                                    <td>' . trans('email.order.total') . '</td>
+                                    <td>' . trans('language.email.order.sort') . '</td>
+                                    <td>' . trans('language.email.order.sku') . '</td>
+                                    <td>' . trans('language.email.order.name') . '</td>
+                                    <td>' . trans('language.email.order.price') . '</td>
+                                    <td>' . trans('language.email.order.qty') . '</td>
+                                    <td>' . trans('language.email.order.total') . '</td>
                                 </tr>';
                 foreach ($data['details'] as $key => $detail) {
                     $orderDetail .= '<tr>
@@ -694,12 +663,12 @@ class ShopCart extends GeneralController
                     '/\{\{\$comment\}\}/',
                     '/\{\{\$orderDetail\}\}/',
                     '/\{\{\$subtotal\}\}/',
-                    '/\{\{\$shipping\}\}/',
+                   '/\{\{\$shipping\}\}/',
                     '/\{\{\$discount\}\}/',
                     '/\{\{\$total\}\}/',
                 ];
                 $dataReplace = [
-                    trans('order.send_mail.new_title') . '#' . $orderId,
+                    trans('language.order.email.new_title') . '#' . $orderId,
                     $orderId,
                     $data['toname'],
                     $data['address1'] . ' ' . $data['address2'],
@@ -714,34 +683,35 @@ class ShopCart extends GeneralController
                 ];
 
                 if (\Helper::configs()['order_success_to_admin'] && $checkContent) {
-                    $content   = $checkContent->text;
-                    $content   = preg_replace($dataFind, $dataReplace, $content);
+                   // $content   = $checkContent->text;
+                    $content   = $orderDetail;//$dataReplace;//preg_replace($dataFind, $dataReplace, $content);
                     $data_mail = [
                         'content' => $content,
                     ];
                     $config = [
                         'to'      => $this->configsGlobal['email'],
-                        'subject' => trans('order.send_mail.new_title') . '#' . $orderId,
+                        'subject' => trans('language.order.email.new_title') . '#' . $orderId,
                     ];
                     \Helper::sendMail('mail.order_success_to_admin', $data_mail, $config, []);
                 }
                 if (\Helper::configs()['order_success_to_customer'] && $checkContentCustomer) {
-                    $contentCustomer    = $checkContentCustomer->text;
-                    $contentCustomer    = preg_replace($dataFind, $dataReplace, $contentCustomer);
+                    //$contentCustomer    = $checkContentCustomer->text;
+                    $contentCustomer    = $orderDetail;//$dataReplace;//preg_replace($dataFind, $dataReplace, $contentCustomer);
                     $data_mail_customer = [
                         'content' => $contentCustomer,
                     ];
                     $config = [
                         'to'      => $data['email'],
                         'replyTo' => $this->configsGlobal['email'],
-                        'subject' => trans('order.send_mail.new_title'),
+                        'subject' => trans('language.order.email.new_title'),
                     ];
+                    //print_r($data_mail_customer); die();
                     \Helper::sendMail('mail.order_success_to_customer', $data_mail_customer, $config, []);
                 }
             }
 
         }
 
-        return redirect()->route('cart')->with('message', trans('order.success'));
+        return redirect()->route('cart')->with('message', trans('language.order.success'));
     }
 }

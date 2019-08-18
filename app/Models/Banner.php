@@ -14,7 +14,7 @@ class Banner extends Model
     public function getImage()
     {
 
-        return PATH_FILE . '/' . $this->image;
+        return SITE_PATH_FILE . '/' . $this->image;
 
     }
 //Scort

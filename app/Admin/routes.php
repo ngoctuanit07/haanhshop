@@ -11,6 +11,7 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('homeAdmin');
+    $router->resource('tintuc', TintucController::class)->names('tintucControl');
     $router->resource('banner', BannerController::class)->names('bannerControl');
     $router->resource('layout', LayoutController::class)->names('layoutControl');
     $router->resource('layout_url', LayoutUrlController::class)->names('layoutUrlControl');
@@ -19,6 +20,8 @@ Route::group([
     $router->resource('subscribe', EmailSubscribeController::class)->names('subscribeControl');
 //Config
     $router->resource('config_info', ConfigInfoController::class)->names('configInfoControl');
+    $router->resource('shop_xuhuongtimkiem', ShopXuhuongtimkiemController::class)->names('shopXuhuongtimkiemControl');
+	$router->resource('lienhe', LienheController::class)->names('lienheControl');
     $router->resource('config_global', ConfigGlobalController::class)->names('configGlobalControl');
     $router->resource('email_config', EmailConfigController::class)->names('emailConfig');
     $router->resource('email_template', EmailTemplateController::class)->names('emailTemplate');
@@ -71,12 +74,12 @@ Route::group([
         $router->post('/disableModule', 'ModulesController@disableModule')->name('disableModule');
         $router->match(['put', 'post'], '/processModule/{moduleGroup}/{module}', 'ModulesController@processModule')->name('processModule');
     });
-    $router->group(['prefix' => 'modules', 'namespace' => 'Modules'], function ($router) {
+    /*$router->group(['prefix' => 'modules', 'namespace' => 'Modules'], function ($router) {
         $router->resource('cms/cms_category', Cms\CmsCategoryController::class)->names('cmsCategoryControl');
         $router->resource('cms/cms_content', Cms\CmsContentController::class)->names('cmsContentControl');
         $router->resource('cms/cms_news', Cms\CmsNewsController::class)->names('cmsNewsControl');
         $router->resource('api/shop_api', Api\ShopApiController::class)->names('apiControl');
-    });
+    });*/
 //End module
 
 //Extensions
@@ -92,13 +95,13 @@ Route::group([
 //end extensions
 
 //Process Simpe
-    $router->prefix('shop_process')->group(function ($router) {
+    $router->prefix('process')->group(function ($router) {
         $router->any('/productImport', 'ProcessController@importProduct')->name('productImport');
     });
+    $router->get('/report/{key}', 'ReportController@index')->name('report');
     //Language
     $router->get('locale/{code}', function ($code) {
         session(['locale' => $code]);
         return back();
     })->name('admin.locale');
-    $router->get('/shop_report/{key}', 'ReportController@index')->name('report');
 });

@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -10,6 +20,7 @@ use App\Models\ShopCurrency;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
+use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 
 class ConfigGlobalController extends Controller
@@ -28,7 +39,7 @@ class ConfigGlobalController extends Controller
             $content->header(trans('language.admin.info_global'));
             $content->description(' ');
 
-            $content->body($this->viewInfo());
+            $content->body($this->grid());
         });
     }
 
@@ -66,19 +77,88 @@ class ConfigGlobalController extends Controller
     // }
 
     /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function grid()
+    {
+        return Admin::grid(ConfigGlobal::class, function (Grid $grid) {
+
+            $grid->html('&nbsp;');
+
+            $grid->logo(trans('language.config.logo'))->image('', 50);
+            if (\Helper::configs()['watermark']) {
+                $grid->watermark(trans('language.config.watermark'))->image('', 50);
+            }
+
+            $languages = Language::getLanguages();
+            $grid->descriptions(trans('language.config.description'))->expand(function () use ($languages) {
+                $html = '<table width="100%" class="table-padding padding5" border=1 style="border: 1px solid #d0bcbc;"><tr>
+            <td>' . trans('language.config.language') . '</td>
+            <td>' . trans('language.config.title') . '</td>
+            <td>' . trans('language.config.description') . '</td>
+            <td>' . trans('language.config.keyword') . '</td>
+            </tr>';
+                foreach ($languages as $key => $lang) {
+                    $langDescriptions = ConfigGlobalDescription::where('config_id', $this->id)->where('lang_id', $key)->first();
+                    $html .= '<tr>
+            <td>' . $lang['name'] . '</td>
+            <td>' . $langDescriptions['title'] . '</td>
+            <td>' . $langDescriptions['description'] . '</td>
+            <td>' . $langDescriptions['keyword'] . '</td>
+            </tr>';
+                }
+                $html .= '</table>';
+                return $html;
+            }, trans('language.admin.detail'));
+
+            $grid->phone(trans('language.config.phone'));
+            $grid->long_phone(trans('language.config.long_phone'))->display(function ($text) {
+                return '<div style="max-width:150px; overflow:auto;">' . $text . '</div>';
+            });
+            $grid->time_active(trans('language.config.time_active'))->display(function ($text) {
+                return '<div style="max-width:150px; overflow:auto;">' . $text . '</div>';
+            });
+
+            $grid->address(trans('language.config.address'))->display(function ($text) {
+                return '<div style="max-width:150px; overflow:auto;">' . $text . '</div>';
+            });
+            $grid->email(trans('language.config.email'))->display(function ($text) {
+                return '<div style="max-width:150px; overflow:auto;">' . $text . '</div>';
+            });
+            $grid->locale(trans('language.config.language'))->display(function ($locale) {
+                $languages = Language::pluck('name', 'code')->all();
+                return $languages[$locale];
+            });
+            $grid->currency(trans('language.config.currency'))->display(function ($currency) {
+                $currencies = ShopCurrency::pluck('name', 'code')->all();
+                return $currencies[$currency];
+            });
+            $grid->disableCreation();
+            $grid->disableExport();
+            $grid->disableRowSelector();
+            $grid->disableFilter();
+            $grid->disablePagination();
+            $grid->actions(function ($actions) {
+                $actions->disableView();
+                $actions->disableDelete();
+            });
+            $grid->tools(function ($tools) {
+                $tools->disableRefreshButton();
+            });
+        });
+    }
+
+    /**
      * Make a form builder.
      *
      * @return Form
      */
     protected function form()
     {
-        $currencies   = ShopCurrency::where('status', 1)->pluck('name', 'code')->all();
-        $arrTimezones = [];
-        foreach (timezone_identifiers_list() as $key => $value) {
-            $arrTimezones[$value] = $value;
-        }
-        $timezones = $arrTimezones;
-        $form      = new Form(new ConfigGlobal);
+        $currencies = ShopCurrency::where('status', 1)->pluck('name', 'code')->all();
+        $form       = new Form(new ConfigGlobal);
         $form->image('logo', trans('language.config.logo'))->removable();
         if (\Helper::configs()['watermark']) {
             $form->image('watermark', trans('language.config.watermark'))->removable();
@@ -112,15 +192,15 @@ class ConfigGlobalController extends Controller
         $form->ignore($arrFields);
 //end language
         $form->text('phone', trans('language.config.phone'));
-		$form->text('google_map', trans('language.config.map'));
         $form->text('long_phone', trans('language.config.long_phone'));
         $form->text('time_active', trans('language.config.time_active'));
         $form->text('address', trans('language.config.address'));
         $form->text('email', trans('language.config.email'));
+        $form->text('website', trans('language.config.website'));
+        $form->text('support', trans('language.config.support'));
+        $form->text('facebook', trans('language.config.facebook'));
         $form->select('locale', trans('language.config.language'))->options($arrLanguage);
-        $form->select('currency', trans('language.config.currency'))->options($currencies);//->rules('required');
-        $form->select('timezone', trans('language.config.timezone'))->options($timezones);//->rules('required');
-        $form->ckeditor('maintain_content', trans('language.config.maintain_content'));
+        $form->select('currency', trans('language.config.currency'))->options($currencies)->rules('required');
         $form->disableViewCheck();
         $form->disableEditingCheck();
         $form->tools(function (Form\Tools $tools) {
@@ -166,25 +246,6 @@ class ConfigGlobalController extends Controller
                 $show->id('ID');
             }));
         });
-    }
-
-    public function viewInfo()
-    {
-        $infosDescription = [];
-        $languages        = Language::getLanguages();
-        foreach ($languages as $key => $lang) {
-            $langDescriptions                      = ConfigGlobalDescription::where('lang_id', $key)->first();
-            $infosDescription['title'][$key]       = $langDescriptions['title'];
-            $infosDescription['description'][$key] = $langDescriptions['description'];
-            $infosDescription['keyword'][$key]     = $langDescriptions['keyword'];
-        }
-
-        $infos = ConfigGlobal::first();
-        return view('admin.ConfigGlobal')->with([
-            "infos"            => $infos,
-            "infosDescription" => $infosDescription,
-            "languages"        => $languages,
-        ])->render();
     }
 
 }

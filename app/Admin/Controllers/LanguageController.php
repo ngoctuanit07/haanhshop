@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;

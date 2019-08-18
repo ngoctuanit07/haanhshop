@@ -1,6 +1,29 @@
+<p align="center">
+    <img src="https://s-cart.org/logo.png" width="150"><br>
+</p>
+<p align="center">Open source e-commerce for business use laravel framework</p>
+<p align="center">
+<a href="https://demo.s-cart.org">Demo</a> | <a href="https://demo.s-cart.org/system_admin">Demo admin</a> | <a href="https://s-cart.org">Home page</a> | <a href="https://s-cart.org/installation.html">Installation</a> | <a href="https://s-cart.org/video-guide.html">Video Guide</a>
+</p>
+<p align="center">
+<a href="https://packagist.org/packages/lanhktc/s-cart"><img src="https://poser.pugx.org/lanhktc/s-cart/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/lanhktc/s-cart"><img src="https://poser.pugx.org/lanhktc/s-cart/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/lanhktc/s-cart"><img src="https://poser.pugx.org/lanhktc/s-cart/license.svg" alt="License"></a>
+</p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-1.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/product-detail.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-2.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-3.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-4.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-5.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-6.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-8.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-9.jpg"></p>
+<p align="center"><img src="https://s-cart.org/images/screen/v22/s-cart-10.jpg"></p>
 
-<p align="center">CMS Ecommerce of author john nguyen use laravel framework<br>
-## About CMS
+
+
+## About S-cart
 Free Open source E-commerce use Laravel framework for Business
 
 ## Technology
@@ -8,7 +31,7 @@ Free Open source E-commerce use Laravel framework for Business
 - Back-end <a href="http://laravel-admin.org">Laravel Admin</a>
 - In addition, s-cart also integrates other free open source libraries.
 
-## List Functions of CMS
+## List Functions of S-cart
 
 ======= SHOPPING =======
 
@@ -21,7 +44,7 @@ Free Open source E-commerce use Laravel framework for Business
 - Categories product
 - Brand product
 - Api manager
-...
+
 ======= SYSTEM MANAGEMENT =======
 
 - Manage & permission users, groups
@@ -34,7 +57,7 @@ Free Open source E-commerce use Laravel framework for Business
 - Manage banner, logo
 - Configure email SMTP
 - System configuration: turn off website, hide / show products
-...
+
 ======= EXTENSIONS =======
 
 - Shipping
@@ -51,9 +74,9 @@ Free Open source E-commerce use Laravel framework for Business
 
 ## Requirements:
 
-Version 2.3.x:
+Version 2.2.x:
 
-> Core laravel framework 5.8. Requirements::
+> Core laravel framework 5.7. Requirements::
 
 ```
 - PHP >= 7.1.3
@@ -67,6 +90,23 @@ Version 2.3.x:
 - BCMath PHP Extension
 ```
 
+
+Version 1.6 ~ 2.1.x:
+
+> Core laravel framework 5.6. Requirements::
+
+```
+- PHP >= 7.1.3
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Mbstring PHP Extension
+- Tokenizer PHP Extension
+- XML PHP Extension
+- Ctype PHP Extension
+- JSON PHP Extension
+```
+
+
 ## Installation & configuration:
 
 <b>How to map your domain to s-cart? <a href="https://s-cart.org/installation.html">CLICK HERE</a></b>
@@ -78,7 +118,6 @@ composer create-project lanhktc/s-cart
 Step2:
 - Chmod -R 777 public/documents/website
 - Chmod -R 777 storage
-- Chmod -R 777 bootstrap/cache
 - Chmod -R 777 vendor
 - Folder thumbnail is  <b>public/documents/website/thumb</b>.
 
@@ -108,3 +147,16 @@ OR manual installation:
     DB_USERNAME=root
     DB_PASSWORD=
 ```
+
+Step5:
+
+NOTE: Please <b>remove</b> or <b>rename</b> file public/install.php so others cannot access it.
+
+Step6:
+- Access to url admin: your-domain/system_admin.
+- User/pass <code><b>admin</b>/<b>admin</b></code>
+
+## Demo:
+
+- Font-end : http://thuhienstore.club/
+

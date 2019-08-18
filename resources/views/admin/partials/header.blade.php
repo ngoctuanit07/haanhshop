@@ -1,13 +1,6 @@
 <!-- Main Header -->
 <header class="main-header">
-<style>
-.table-padding td,.padding5{
-    padding:5px;
-}
-.table-padding{
-    background: #f9f8d8;
-}
-</style>
+
     <!-- Logo -->
     <a href="{{ admin_base_path('/') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -22,8 +15,9 @@
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
-
+        <ul class="nav navbar-nav">
         {!! Admin::getNavbar()->render('left') !!}
+        </ul>
 
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">

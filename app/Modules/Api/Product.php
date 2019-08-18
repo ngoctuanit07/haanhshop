@@ -32,7 +32,6 @@ class Product extends General
  */
     public function index()
     {
-        $this->validationApi();
         if ($this->apiName == 'api_product_list') {
             return $this->list();
         }
@@ -46,7 +45,6 @@ class Product extends General
  * @return [type] [description]
  */
     function list() {
-        $this->validationApi();
         $limit        = $this->limit;
         $start        = $this->start;
         $orderBy      = $this->orderBy;
@@ -79,7 +77,6 @@ class Product extends General
  */
     public function detail($sku)
     {
-        $this->validationApi();
         $query = ShopProduct::with('descriptions', 'images', 'options', 'specialPrice')->where('sku', $sku)->first();
         if ($query) {
             $hiddenFields = empty($this->hiddenFields) ? [] : explode(',', $this->hiddenFields);

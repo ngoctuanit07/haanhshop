@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use App\Models\Language;
+use App\Models\Traits\Cacheable;
 use Illuminate\Database\Eloquent\Model;
 
 class ShopPage extends Model
 {
     public $timestamps = false;
+	use Cacheable;
+	
+	protected $cacheTime = 10;
     public $table      = 'shop_page';
     protected $appends = [
         'title',
@@ -72,6 +76,6 @@ class ShopPage extends Model
     }
     public function processDescriptions()
     {
-        return $this->descriptions->keyBy('lang_id')[$this->lang_id] ?? [];
+        return $this->descriptions->keyBy('lang_id')[$this->lang_id];
     }
 }

@@ -3,7 +3,6 @@ return [
     'title'                 => 'Đơn hàng',
     'customer_name'         => 'Tên khách hàng',
     'customer'              => 'Khách hàng',
-    'email'                 => 'Email',
     'sub_total'             => 'Tiền hàng',
     'shipping_price'        => 'Tiền vận chuyển',
     'free_shipping'         => 'Miễn phí vận chuyện',
@@ -36,13 +35,12 @@ return [
     'currency'              => 'Loại tiền',
     'exchange_rate'         => 'Tỉ giá',
     'payment_method'        => 'Thanh toán',
-    'date'                  => 'Ngày tạo',
-    'send_mail'             => [
+    'email'                 => [
         'title'     => 'Email',
         'new_title' => 'ĐƠN HÀNG MỚI',
     ],
 
-    'totals'                => [
+    'total'                 => [
         'sub_total' => 'Tiền hàng',
         'total'     => 'Tổng tiền',
         'shipping'  => 'Phí vẫn chuyển',

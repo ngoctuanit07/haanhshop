@@ -1,5 +1,5 @@
 <!--main right-->
-<div class="col-sm-9 padding-right">
+<div class="col-sm-12 col-md-12 col-lg-12">
    @yield('center')
 </div>
 <!--//main right-->

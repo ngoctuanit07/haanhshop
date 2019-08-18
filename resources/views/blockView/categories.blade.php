@@ -1,3 +1,4 @@
+
   @php
     $modelCategory = (new \App\Models\ShopCategory);
     $categories = $modelCategory->getCategoriesAll();

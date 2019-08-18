@@ -128,7 +128,7 @@ return [
         'special_price'     => 'Special price',
         'product_manager'   => 'Product manager',
         'pages'             => 'Pages Manager',
-        'settings'          => 'Settings & Configs',
+        'settings'          => 'Settings',
         'banners_manager'   => 'Banners Manager',
         'order_manager'     => 'Order Manager',
         'orders_manager'    => 'Order Manager',

@@ -1,121 +1,84 @@
 @extends(SITE_THEME.'.shop_layout')
 
 @section('center')
-          <div class="features_items"><!--features_items-->
-            <h2 class="title text-center">{{ trans('language.features_items') }}</h2>
-                @foreach ($products_new as  $key => $product_new)
-                  <div class="col-sm-4">
-                    <div class="product-image-wrapper product-single">
-                      <div class="single-products product-box-{{ $product_new->id }}">
-                          <div class="productinfo text-center">
-                            <a href="{{ $product_new->getUrl() }}"><img src="{{ asset($product_new->getThumb()) }}" alt="{{ $product_new->name }}" /></a>
-                            {!! $product_new->showPrice() !!}
-                            <a href="{{ $product_new->getUrl() }}"><p>{{ $product_new->name }}</p></a>
-                            <a class="btn btn-default add-to-cart" onClick="addToCart('{{ $product_new->id }}','default',$(this))"><i class="fa fa-shopping-cart"></i>{{trans('language.add_to_cart')}}</a>
-                          </div>
-                      @if ($product_new->price != $product_new->getPrice())
-                      <img src="{{ asset(SITE_THEME_ASSET.'/images/home/sale.png') }}" class="new" alt="" />
-                      @elseif($product_new->type == 1)
-                      <img src="{{ asset(SITE_THEME_ASSET.'/images/home/new.png') }}" class="new" alt="" />
-                      @endif
-                      </div>
-                      <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCart('{{ $product_new->id }}','wishlist',$(this))"><i class="fa fa-plus-square"></i>{{trans('language.add_to_wishlist')}}</a></li>
-                          <li><a onClick="addToCart('{{ $product_new->id }}','compare',$(this))"><i class="fa fa-plus-square"></i>{{trans('language.add_to_compare')}}</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-               @endforeach
-          </div><!--features_items-->
 
-          <div class="recommended_items"><!--recommended_items-->
-            <h2 class="title text-center">{{ trans('language.products_hot') }}</h2>
-
-            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                @foreach ($products_hot as  $key => $product_hot)
-                @if ($key % 3 == 0)
-                  <div class="item {{  ($key ==0)?'active':'' }}">
-                @endif
-                  <div class="col-sm-4">
-                    <div class="product-image-wrapper product-single">
-                      <div class="single-products   product-box-{{ $product_hot->id }}">
-                          <div class="productinfo text-center">
-                            <a href="{{ $product_hot->getUrl() }}"><img src="{{ asset($product_hot->getThumb()) }}" alt="{{ $product_hot->name }}" /></a>
-                            {!! $product_hot->showPrice() !!}
-                            <a href="{{ $product_hot->getUrl() }}"><p>{{ $product_hot->name }}</p></a>
-                            <a class="btn btn-default add-to-cart" onClick="addToCart('{{ $product_hot->id }}','default',$(this))"><i class="fa fa-shopping-cart"></i>{{trans('language.add_to_cart')}}</a>
-                          </div>
-                          @if ($product_hot->price != $product_hot->getPrice())
-                          <img src="{{ asset(SITE_THEME_ASSET.'/images/home/sale.png') }}" class="new" alt="" />
-                          @elseif($product_hot->type == 1)
-                          <img src="{{ asset(SITE_THEME_ASSET.'/images/home/new.png') }}" class="new" alt="" />
-                          @endif
-                      </div>
-                      <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCart('{{ $product_hot->id }}','wishlist',$(this))"><i class="fa fa-plus-square"></i>{{trans('language.add_to_wishlist')}}</a></li>
-                          <li><a onClick="addToCart('{{ $product_hot->id }}','compare',$(this))"><i class="fa fa-plus-square"></i>{{trans('language.add_to_compare')}}</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                @if ($key % 3 == 2 || $key+1 == $products_hot->count())
-                  </div>
-                @endif
-               @endforeach
-
-              </div>
-               <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div><!--/recommended_items-->
-
-          <div class="category-tab"><!--category-tab-->
-            <div class="col-sm-12">
-              <ul class="nav nav-tabs">
-                @foreach ($categories[0] as $key => $category)
-                  <li {{ ($key ==0)?'class="active"':'' }}><a href="#cate{{ $key }}" data-toggle="tab">{{ $category->name }}</a></li>
-                @endforeach
-              </ul>
-            </div>
-            <div class="tab-content">
-              @foreach ($categories[0] as $key => $category)
-                <div class="tab-pane fade {{ ($key ==0)?'active in':'' }}" id="cate{{ $key }}" >
-                  @foreach ($category->getProductsToCategory($category->id,4) as $product)
-                    <div class="col-sm-3">
-                      <div class="product-image-wrapper product-single">
-                        <div class="single-products  product-box-{{ $product->id }}">
-                          <div class="productinfo text-center">
-                            <a href="{{ $product->getUrl() }}"><img src="{{ asset($product->getThumb()) }}" alt="{{ $product->name }}" /></a>
-                            {!! $product->showPrice() !!}
-                            <a href="{{ $product->getUrl() }}"><p>{{ $product->name }}</p></a>
-                            <a class="btn btn-default add-to-cart" onClick="addToCart('{{ $product->id }}','default',$(this))"><i class="fa fa-shopping-cart"></i>{{trans('language.add_to_cart')}}</a>
-                          </div>
-                          @if ($product->price != $product->getPrice())
-                          <img src="{{ asset(SITE_THEME_ASSET.'/images/home/sale.png') }}" class="new" alt="" />
-                          @elseif($product->type == 1)
-                          <img src="{{ asset(SITE_THEME_ASSET.'/images/home/new.png') }}" class="new" alt="" />
-                          @endif
-
-                        </div>
-                      </div>
-                    </div>
-                  @endforeach
+    <div class="h_pCategory">
+        <div class="container">
+            @foreach ($categories[0] as $key => $category)
+                <div class="col-md-12 col-sm-12 col-xs-12 home_title">
+                    <h2>{{$category->name}}</h2>
+                    <img data-sizes="100w" src="{{ asset(SITE_THEME_ASSET.'/images/border-bottom.png')}}"
+                         data-src="{{ asset(SITE_THEME_ASSET.'/images/border-bottom.png')}}" alt="{{$category->name}}"/>
                 </div>
-              @endforeach
-            </div>
-          </div><!--/category-tab-->
+                <div class="col-md-12 col-sm-12 col-xs-12 home_readmore">
+                    <a href="{{$category->getUrl()}}" title="Xem tất cả">Xem tất cả</a>
+                </div>
 
+                @foreach ($category->getProductsToCategory($category->id,8) as $product)
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                        <div class="h_pCategory_child">
+                            <a href="{{$product->getUrl()}}">
+                                <p style="background-image: url({{ asset($product->getThumb()) }});">
+                                </p>
+                                <b>{{ $product->name }}</b>
+                                <span>{!! $product->showPrice() !!}</span>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
 
+            @endforeach
+
+        </div>
+    </div>
 @endsection
+@section('news')
+    <div class="h_news">
+        <div class="container">
+            <div class="col-md-12 col-sm-12 col-xs-12 home_title">
+                <h3>Tin tức & Sự kiện</h3>
+                <img data-sizes="100w" src="{{ asset(SITE_THEME_ASSET.'/images/border-bottom.png')}}"
+                     data-src="{{ asset(SITE_THEME_ASSET.'/images/border-bottom.png')}}" alt="thu hien store"/>
+            </div>
+			<?php
+			//print_r(count($news)); die();
+			$newTotal = count($news);
+			?>
+			<?php $item = 0; $rowNumber = ceil($newTotal / 4); $columnStt = 1;?>
+            @foreach ($news as $newsDetail)
+				<?php if($item % $rowNumber === 0):?>
+                <div class="col-sm-3 item col-xs-12">
+					<?php endif;?>
+                    <div class="h_news_child">
+                        <a href="{{ $newsDetail->getUrl() }}"
+                           title="{{ $newsDetail->title }}">
+                            <p style="background-image: url({{ asset($newsDetail->getThumb()) }})"></p>
+                            <b>{{ $newsDetail->title }}</b>
+                        </a>
+                    </div>
+					<?php if((($item + 1) % $rowNumber) == 0):?>
+					<?php if (($rowNumber > 1) && ($columnStt == $newTotal % 4) && (($item + 1) % $columnStt == 0)) {
+						$rowNumber--;
+						$item += (($rowNumber - 1) - ($item % $rowNumber));
+					}?>
+					<?php $columnStt++?>
+                </div>
+				<?php endif;?>
+				<?php $item++?>
+            @endforeach
+            <div class="col-md-12 col-sm-12 col-xs-12 text_align_center">
+                <!-- Pagination -->
+                <div class="pagination">
+                    <div class="pagination">
+                        {{ $news->links() }}
+                    </div>
+                </div>
+                <!-- Pagination -->
 
+            </div>
+        </div>
+    </div>
+@endsection
 
 
 @push('styles')

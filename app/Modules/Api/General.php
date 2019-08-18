@@ -2,30 +2,25 @@
 #app/Modules/Api/General.php
 namespace App\Modules\Api;
 
-use App\Http\Controllers\Controller as Controller;
 use App\Models\ShopApi;
 use App\Models\ShopApiProcess;
 use Illuminate\Http\Request;
 
-class General extends Controller
+class General extends \App\Http\Controllers\Controller
 {
     public $hiddenFields;
     public $apiName;
     public $secretKey;
     public $data;
-    public $ipClient;
 
     public function __construct(Request $request)
     {
+        $ipClient        = $request->ip();
+        $method          = $request->method();
         $headers         = getallheaders();
         $this->secretKey = $headers['Apisecret'] ?? '';
         $this->apiName   = $headers['Apiname'] ?? '';
         $this->data      = $request->all();
-        $this->ipClient  = $request->ip();
-    }
-
-    public function validationApi()
-    {
 
         $error = array();
 
@@ -73,8 +68,8 @@ class General extends Controller
                 $ipDeny  = $checkSecretKey->ip_deny;
 
                 //Check Ip
-                if (($ipAllow && !in_array($this->ipClient, explode(',', $ipAllow))) ||
-                    (!$ipAllow && in_array($this->ipClient, explode(',', $ipDeny)))
+                if (($ipAllow && !in_array($ipClient, explode(',', $ipAllow))) ||
+                    (!$ipAllow && in_array($ipClient, explode(',', $ipDeny)))
                 ) {
                     $error = array(
                         'error'  => 1,
@@ -105,5 +100,6 @@ class General extends Controller
 //==============Process when Api is public============
             $this->hiddenFields = $checkApi->hidden_default;
         }
+
     }
 }

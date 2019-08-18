@@ -8,10 +8,8 @@ use Illuminate\Support\Facades\Schema;
 
 class Paypal extends Model
 {
-    public $timestamps            = false;
-    public $table                 = 'paypal';
-    const ORDER_STATUS_PROCESSING = 2;
-    const ORDER_STATUS_FAILD      = 6;
+    public $timestamps = false;
+    public $table      = 'paypal';
     public function uninstallExtension()
     {
         if (Schema::hasTable($this->table)) {
@@ -44,8 +42,8 @@ class Paypal extends Model
                         'paypal_log'                  => 0,
                         'paypal_path_log'             => 'logs/paypal.log',
                         'paypal_currency'             => 'USD',
-                        'paypal_order_status_success' => self::ORDER_STATUS_PROCESSING, //processing
-                        'paypal_order_status_faild'   => self::ORDER_STATUS_FAILD, //Failed
+                        'paypal_order_status_success' => 1,
+                        'paypal_order_status_faild'   => 5,
                         'paypal_mode'                 => 'sandbox',
                         'paypal_logLevel'             => 'DEBUG', //DEBUG-  sanbox, INFO,ERROR,WARNING - live
                     ]

@@ -1,4 +1,15 @@
 <?php
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 #app/Http/Admin/Controllers/ProcessController.php
 namespace App\Admin\Controllers;
 
@@ -9,8 +20,8 @@ use App\Models\ShopSpecialPrice;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
+use Excel;
 use Illuminate\Http\Request;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ProcessController extends Controller
 {
@@ -22,7 +33,6 @@ class ProcessController extends Controller
      */
     public function index(Content $content)
     {
-
         return $content
             ->header('Index')
             ->description(' ')
@@ -31,190 +41,64 @@ class ProcessController extends Controller
 
     public function importProduct(Content $content, Request $request)
     {
-
         if ($request->getMethod() == 'POST') {
-            $case = $request->get('case');
-            switch ($case) {
-                case 'import_file_info':
-                    $validatedData = \Validator::make($request->all(), [
-                        'import_file_info' => 'max:10240|required|mimes:csv',
-                    ]);
-                    if ($validatedData->fails()) {
-                        return redirect()->back()->withErrors($validatedData->errors());
-                    } else {
-                        $reader      = IOFactory::createReader('Xls');
-                        $spreadsheet = $reader->load($request->file('import_file_info'));
-                        $sheet       = $spreadsheet->getActiveSheet();
-                        $maxCol      = $sheet->getHighestColumn();
-                        $maxRow      = $sheet->getHighestRow();
-                        $data        = $sheet->rangeToArray('B3:' . $maxCol . $maxRow, true, true, true, true);
-                        $headings    = array_shift($data);
-                        array_walk(
-                            $data,
-                            function (&$row) use ($headings) {
-                                $row = array_combine($headings, $row);
-                            }
-                        );
-                        $arrError   = array();
-                        $arrSuccess = array();
-                        // dd($data);
-                        foreach ($data as $key => $row) {
-                            $arrMapping                = array();
-                            $sku                       = $row['sku'];
-                            $arrMapping['price']       = $row['price'];
-                            $arrMapping['cost']        = $row['cost'];
-                            $arrMapping['stock']       = $row['stock'];
-                            $arrMapping['category_id'] = $row['category_id'];
-                            $arrMapping['brand_id']    = $row['brand_id'];
-                            $arrMapping['vendor_id']   = $row['vendor_id'];
+            $validatedData = \Validator::make($request->all(), [
+                'import_file' => 'required|mimes:xlsx',
+            ]);
+            if ($validatedData->fails()) {
+                return redirect()->back()->withErrors($validatedData->errors());
+            } else {
+                Excel::load($request->file('import_file'), function ($reader) use ($request) {
+                    $reader->skipRows(1); //
+                    $arrError   = array();
+                    $arrSuccess = array();
+                    foreach ($reader->toArray() as $key => $row) {
+                        if (ShopProduct::where('sku', $row['sku'])->first()) {
+                            $arrError[] = $row['sku'] . ': already exist!';
+                        } else {
                             try {
-                                (new ShopProduct)
-                                    ->updateOrInsert(
-                                        ['sku' => $sku],
-                                        $arrMapping
-                                    );
-                                $arrSuccess[] = $sku;
+                                $arrMapping                = array();
+                                $arrMapping['sku']         = $row['sku'];
+                                $arrMapping['price']       = (int) $row['price'];
+                                $arrMapping['cost']        = (int) $row['cost'];
+                                $arrMapping['stock']       = (int) $row['stock'];
+                                $arrMapping['category_id'] = (int) $row['category_id'];
+                                $arrMapping['brand_id']    = (int) $row['brand_id'];
+                                $arrMapping['vendor_id']   = (int) $row['vendor_id'];
+                                $id                        = ShopProduct::insertGetId($arrMapping);
+                                $descriptons               = [
+                                    'product_id'  => $id,
+                                    'name'        => $row['name'],
+                                    'description' => $row['description'],
+                                    'keyword'     => $row['keyword'],
+                                    'content'     => $row['content'],
+                                    'lang_id'     => (int) $row['language'],
+                                ];
+                                ShopProductDescription::insert($descriptons);
+                                if ($row['special_price']) {
+                                    ShopSpecialPrice::insert([
+                                        'product_id' => $id,
+                                        'price'      => $row['special_price'],
+                                        'status'     => 1,
+                                    ]);
+                                }
+                                $arrSuccess[] = $row['sku'];
                             } catch (\Exception $e) {
-                                $arrError[] = $sku . ': ' . $e->getMessage();
+                                // $arrError[] = $row['sku'] . ': have error ' . $e->getMessage();
+                                $arrError[] = $row['sku'] . ': have error';
                             }
                         }
-                        if ($arrSuccess) {
-                            $request->session()->flash('import_success', $arrSuccess);
-                        }
-                        if ($arrError) {
-                            $request->session()->flash('import_error', $arrError);
-                        }
-                        return back();
 
                     }
-
-                    break;
-
-                case 'import_file_description':
-                    $reader        = IOFactory::createReader('Xls');
-                    $validatedData = \Validator::make($request->all(), [
-                        'import_file_description' => 'required|mimes:xlsx,xls',
-                    ]);
-                    if ($validatedData->fails()) {
-                        return redirect()->back()->withErrors($validatedData->errors());
-                    } else {
-
-                        $spreadsheet = $reader->load($request->file('import_file_description'));
-                        $sheet       = $spreadsheet->getActiveSheet();
-                        $maxCol      = $sheet->getHighestColumn();
-                        $maxRow      = $sheet->getHighestRow();
-                        $data        = $sheet->rangeToArray('B3:' . $maxCol . $maxRow, true, true, true, true);
-                        $headings    = array_shift($data);
-                        array_walk(
-                            $data,
-                            function (&$row) use ($headings) {
-                                $row = array_combine($headings, $row);
-                            }
-                        );
-                        $arrError   = array();
-                        $arrSuccess = array();
-                        foreach ($data as $key => $row) {
-                            $sku          = $row['sku'];
-                            $checkProduct = ShopProduct::where('sku', $sku)->first();
-                            if (!$checkProduct) {
-                                $arrError[] = $sku . ': already not exist!';
-                            } else {
-                                try {
-                                    $arrUnique = ['product_id' => $checkProduct->id, 'lang_id' => (int) $row['lang_id']];
-                                    $fields    = [
-                                        'name'        => $row['name'],
-                                        'description' => $row['description'],
-                                        'keyword'     => $row['keyword'],
-                                        'content'     => $row['content'],
-                                    ];
-                                    (new ShopProductDescription)
-                                        ->updateOrInsert(
-                                            $arrUnique,
-                                            $fields
-                                        );
-                                    $arrSuccess[] = $sku;
-                                } catch (\Exception $e) {
-                                    // $arrError[] = $sku . ': have error ' . $e->getMessage();
-                                    $arrError[] = $sku . ': ' . $e->getMessage();
-                                }
-                            }
-
-                        }
-                        if ($arrSuccess) {
-                            $request->session()->flash('import_success', $arrSuccess);
-                        }
-                        if ($arrError) {
-                            $request->session()->flash('import_error', $arrError);
-                        }
-                        return back();
-
+                    if ($arrSuccess) {
+                        $request->session()->flash('import_success', $arrSuccess);
                     }
-                    break;
-
-                case 'import_file_special_price':
-                    $reader        = IOFactory::createReader('Xls');
-                    $validatedData = \Validator::make($request->all(), [
-                        'import_file_special_price' => 'required|mimes:xlsx,xls',
-                    ]);
-                    if ($validatedData->fails()) {
-                        return redirect()->back()->withErrors($validatedData->errors());
-                    } else {
-
-                        $spreadsheet = $reader->load($request->file('import_file_special_price'));
-                        $sheet       = $spreadsheet->getActiveSheet();
-                        $maxCol      = $sheet->getHighestColumn();
-                        $maxRow      = $sheet->getHighestRow();
-                        $data        = $sheet->rangeToArray('B3:' . $maxCol . $maxRow, true, true, true, true);
-                        $headings    = array_shift($data);
-                        array_walk(
-                            $data,
-                            function (&$row) use ($headings) {
-                                $row = array_combine($headings, $row);
-                            }
-                        );
-                        $arrError   = array();
-                        $arrSuccess = array();
-                        foreach ($data as $key => $row) {
-                            $sku          = $row['sku'];
-                            $checkProduct = ShopProduct::where('sku', $sku)->first();
-                            if (!$checkProduct) {
-                                $arrError[] = $sku . ': already not exist!';
-                            } else {
-                                try {
-                                    $arrUnique = ['product_id' => $checkProduct->id];
-                                    $fields    = [
-                                        'price'   => (int) $row['price'],
-                                        'status'  => (int) $row['status'],
-                                        'comment' => (int) $row['comment'],
-                                    ];
-                                    (new ShopSpecialPrice)
-                                        ->updateOrInsert(
-                                            $arrUnique,
-                                            $fields
-                                        );
-                                    $arrSuccess[] = $sku;
-                                } catch (\Exception $e) {
-                                    $arrError[] = $sku . ': ' . $e->getMessage();
-                                }
-                            }
-
-                        }
-                        if ($arrSuccess) {
-                            $request->session()->flash('import_success', $arrSuccess);
-                        }
-                        if ($arrError) {
-                            $request->session()->flash('import_error', $arrError);
-                        }
-                        return back();
-
+                    if ($arrError) {
+                        $request->session()->flash('import_error', $arrError);
                     }
-                    break;
-
-                default:
-                    # code...
-                    break;
+                    return back();
+                });
             }
-
         }
 
         return $content
@@ -225,7 +109,7 @@ class ProcessController extends Controller
 
     public function getImportProduct()
     {
-        return view('admin.importProduct')->render();
+        return view('admin.ImportProduct')->render();
 
     }
 

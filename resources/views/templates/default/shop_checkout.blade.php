@@ -31,11 +31,11 @@
     <thead>
       <tr  style="background: #eaebec">
         <th style="width: 50px;">No.</th>
-        <th style="width: 100px;">{{ trans('product.sku') }}</th>
-        <th>{{ trans('product.name') }}</th>
-        <th>{{ trans('product.price') }}</th>
-        <th >{{ trans('product.quantity') }}</th>
-        <th>{{ trans('product.total_price') }}</th>
+        <th style="width: 100px;">{{ trans('language.product.sku') }}</th>
+        <th>{{ trans('language.product.name') }}</th>
+        <th>{{ trans('language.product.price') }}</th>
+        <th >{{ trans('language.product.quantity') }}</th>
+        <th>{{ trans('language.product.total_price') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -75,29 +75,29 @@
     <input type="hidden" name="address" value="{{ json_encode($address) }}">
     <input type="hidden" name="dataTotal" value="{{ json_encode($dataTotal) }}">
     <input type="hidden" name="payment" value="{{ $payment }}">
-    <input type="hidden" name="shipping" value="{{ $shipping }}">
+
     <div class="row">
     <div class="col-md-6">
-        <h3 class="control-label"><i class="fa fa-credit-card-alt"></i> {{ trans('cart.shipping_address') }}:<br></h3>
+        <h3 class="control-label"><i class="fa fa-credit-card-alt"></i> {{ trans('language.cart.shipping_address') }}:<br></h3>
         <table class="table box table-bordered" id="showTotal">
             <tr>
-                <th>{{ trans('cart.to_name') }}:</td>
+                <th>{{ trans('language.cart.to_name') }}:</td>
                 <td>{{ $address['toname'] }}</td>
             </tr>
             <tr>
-                <th>{{ trans('cart.phone') }}:</td>
+                <th>{{ trans('language.cart.phone') }}:</td>
                 <td>{{ $address['phone'] }}</td>
             </tr>
              <tr>
-                <th>{{ trans('cart.email') }}:</td>
+                <th>{{ trans('language.cart.email') }}:</td>
                 <td>{{ $address['email'] }}</td>
             </tr>
              <tr>
-                <th>{{ trans('cart.address') }}:</td>
+                <th>{{ trans('language.cart.address') }}:</td>
                 <td>{{ $address['address1'].' '.$address['address2'] }}</td>
             </tr>
              <tr>
-                <th>{{ trans('cart.note') }}:</td>
+                <th>{{ trans('language.cart.note') }}:</td>
                 <td>{{ $address['comment'] }}</td>
             </tr>
         </table>
@@ -126,7 +126,7 @@
             <div class="row">
                 <div class="col-md-12">
                         <div class="form-group">
-                            <h3 class="control-label"><i class="fa fa-credit-card-alt"></i> {{ trans('cart.payment_method') }}:<br></h3>
+                            <h3 class="control-label"><i class="fa fa-credit-card-alt"></i> {{ trans('language.cart.payment_method') }}:<br></h3>
                         </div>
                         <div class="form-group">
                                 <div>
@@ -145,10 +145,10 @@
         <div class="row" style="padding-bottom: 20px;">
             <div class="col-md-12 text-center">
              <div class="pull-left">
-                <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('cart') }}'"><i class="fa fa-arrow-left"></i>{{ trans('cart.back_to_cart') }}</button>
+                <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('cart') }}'"><i class="fa fa-arrow-left"></i>{{ trans('language.cart.back_to_cart') }}</button>
                 </div>
                     <div class="pull-right">
-                        <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px"><i class="fa fa-check"></i> {{ trans('cart.confirm') }}</button>
+                        <button class="btn btn-success" id="submit-order" type="submit" style="cursor: pointer;padding:10px 30px"><i class="fa fa-check"></i> {{ trans('language.cart.confirm') }}</button>
                     </div>
             </div>
         </div>
@@ -163,13 +163,14 @@
 @endsection
 
 @section('breadcrumb')
-    <div class="breadcrumbs">
-        <ol class="breadcrumb">
-          <li><a href="{{ route('home') }}">Home</a></li>
-          <li><a href="{{ route('cart') }}">{{ trans('language.cart_title') }}</a></li>
-          <li class="active">{{ $title }}</li>
-        </ol>
-      </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 group_child">
+        <ul id="breadcrumb1" class="list-inline mg-left-xs-0 hidden-xs">
+            <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="{{ route('cart') }}">{{ trans('language.cart_title') }}</a></li>
+            <li class="active">{{ $title }}</li>
+        </ul>
+    </div>
 @endsection
 
 @push('scripts')

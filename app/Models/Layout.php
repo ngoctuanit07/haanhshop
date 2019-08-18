@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Traits\Cacheable;
 class Layout extends Model
 {
     public $timestamps  = false;
+	use Cacheable;
+	
+	protected $cacheTime = 10;
     public $table       = 'layout';
-    protected $fillable = ['status', 'text', 'sort', 'type', 'page', 'position', 'name'];
+    protected $fillable = ['status', 'content', 'sort', 'type', 'page', 'position', 'name'];
     /**
      * Get value field page same array
      * @param  [type] $page [description]

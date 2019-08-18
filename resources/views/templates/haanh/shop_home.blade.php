@@ -37,7 +37,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="55" height="55"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/h1.jpg"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/h1.jpg')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="56" height="57"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/h2.jpg"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/h2.jpg')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="62" height="58"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/h3.jpg"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/h3.jpg')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="52" height="49"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/h4.jpg"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/h4.jpg')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -129,14 +129,15 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="61" height="60"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/h5.jpg"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/h5.jpg')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
                                 <div class="icon-box-text last-reset">
 
                                     <h3 style="text-align: center;">Đảm bảo</h3>
-                                    <p style="text-align: center;">Hà Anh Shop sẽ trả gấp 10 lần nếu phát hiện tinh bột nghệ
+                                    <p style="text-align: center;">Hà Anh Shop sẽ trả gấp 10 lần nếu phát hiện tinh bột
+                                        nghệ
                                         không phải nguyên chất.</p>
                                 </div>
                             </div>
@@ -251,7 +252,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="100" height="100"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/SANG-DA-DEP.png"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/SANG-DA-DEP.png')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -276,7 +277,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="100" height="100"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/loet-da-day.png"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/loet-da-day.png')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -302,7 +303,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="100" height="100"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/giam-can.png"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/giam-can.png')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -326,7 +327,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="100" height="100"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/ngan-ngua-ung-thu.png"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/ngan-ngua-ung-thu.png')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -350,7 +351,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="100" height="100"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/dieu-tri-benh.png"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/dieu-tri-benh.png')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -375,7 +376,7 @@
                                     <div class="icon">
                                         <div class="icon-inner">
                                             <img width="100" height="100"
-                                                 src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/phu-nu-sau-sinh.png"
+                                                 src="{{ asset(SITE_THEME_ASSET.'/images/phu-nu-sau-sinh.png')}}"
                                                  class="attachment-medium size-medium" alt=""></div>
                                     </div>
                                 </div>
@@ -433,260 +434,78 @@
             </style>
         </section>
 
-        <section class="section section-sp" id="section_906476544">
-            <div class="bg section-bg fill bg-fill  bg-loaded">
+        @php
+            $lang_id = 2;
+                $products = \App\Models\ShopProduct::where('status', 1)->where('stock', '>', 0)->with(['descriptions' => function ($q) use ($lang_id) {
+                    $q->where('lang_id', $lang_id);
+                }])->sort()->get()
+        @endphp
+        @if (!empty($products))
+            @foreach ($products as $key => $product)
 
-            </div>
-            <!-- .section-bg -->
+                <?php //print_r($product); die('222');?>
+                    <section class="section section-sp" id="section_685348083">
+                        <div class="bg section-bg fill bg-fill  bg-loaded">
 
-            <div class="section-content relative">
+                        </div>
+                        <!-- .section-bg -->
+                        <div class="section-content relative">
 
-                <div class="row" id="row-2070377120">
-                    <div class="col div-sp-bottom small-12 large-12">
-                        <div class="col-inner">
-                            <h3 style="text-align: center;" data-css="tve-u-15f6c5454cd"><span
-                                        style="font-size: 150%; color: #f36f21;"><strong>TINH BỘT NGHỆ VÀNG</strong></span>
-                            </h3>
-                            <div class="row" id="row-221221223">
-                                <div class="col medium-6 small-12 large-6">
+                            <div class="row" id="row-446504803">
+                                <div class="col div-sp-bottom small-12 large-12">
                                     <div class="col-inner">
-                                        <div class="img has-hover x md-x lg-x y md-y lg-y" id="image_655924186">
-                                            <div class="img-inner dark">
-                                                <img width="800" height="800"
-                                                     src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang-800x800.jpg"
-                                                     class="attachment-large size-large" alt=""
-                                                     srcset="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang-800x800.jpg 800w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang-280x280.jpg 280w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang-400x400.jpg 400w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang-768x768.jpg 768w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang-300x300.jpg 300w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang-600x600.jpg 600w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang-100x100.jpg 100w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-vang.jpg 1000w"
-                                                     sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
+                                        <h3 class="" style="text-align: center;" data-css="tve-u-15f6c5454cd"><span
+                                                    style="font-size: 150%; color: #f36f21;"><strong>{{ $product->name }}</strong></span>
+                                        </h3>
+                                        <div class="row" id="row-1856594723">
+                                            <div class="col medium-6 small-12 large-6">
+                                                <div class="col-inner">
+                                                    <div class="img has-hover x md-x lg-x y md-y lg-y" id="image_616740649">
+                                                        <div class="img-inner dark">
+                                                            <img width="800" height="800"
+                                                                 src="{{ asset($product->getImage()) }}"
+                                                                 class="attachment-large size-large" alt=""
 
-                                            <style scope="scope">
-                                                #image_655924186 {
-                                                    width: 100%;
-                                                }
-                                            </style>
-                                        </div>
+                                                                 sizes="(max-width: 800px) 100vw, 800px">
+                                                        </div>
 
-                                    </div>
-                                </div>
-                                <div class="col medium-6 small-12 large-6">
-                                    <div class="col-inner">
-                                        <p><span style="font-size: 100%;"><strong>Thành Phần</strong>: tinh bột nghệ vàng nguyên chất 100% từ vùng nguyên liệu chuyên canh như : ĐăK LăK, Kon Tum.</span>
-                                        </p>
-                                        <p><span style="font-size: 100%;"><strong>Hàm Lượng Curcumin:</strong>&nbsp;2 mg/g</span>
-                                        </p>
-                                        <p><span style="font-size: 100%;">Tinh bột nghệ vàng được Dược Sĩ khuyên dùng trong làm đẹp, làm mặt nạ tinh bột nghệ, điều trị đau dạ dày mới phát sinh.</span>
-                                        </p>
-                                        <p><span style="font-size: 100%;">Có thể sử dụng tinh bột nghệ vàng làm rất nhiều loại mặt nạ tinh bột nghệ như : mặt nạ tinh bột nghệ sữa, mật ông, sữa chua, trái cây tự nhiện,…</span>
-                                        </p>
-                                        <p><span style="font-size: 100%;"><strong>Giá khuyến mãi chỉ từ&nbsp;<span
-                                                            style="color: #ed1c24;" data-css="tve-u-160d17f7e00">335,000đ/500g</span></strong>
-                                        </span>
-                                        </p>
-                                        <p><span style="font-size: 100%;"><strong>Combo 2 lon 550g :&nbsp;<span
-                                                            style="color: #ed1c24;" data-css="tve-u-160d17f63e7">620,000đ</span></strong>
-                                        </span>
-                                        </p>
-                                        <div class="row" id="row-1022707779">
-                                            <div class="col small-12 large-12">
-                                                <div class="col-inner text-center">
-                                                    <a href="#spu-144" target="_self" class="button alert spu-clickable"
-                                                       style="border-radius: 99px; cursor: pointer;">
-                                                        <span>Đặt hàng ngay</span>
-                                                    </a>
+                                                        <style scope="scope">
+                                                            #image_616740649 {
+                                                                width: 100%;
+                                                            }
+                                                        </style>
+                                                    </div>
 
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- .section-content -->
-
-            <style scope="scope">
-                #section_906476544 {
-                    padding-top: 30px;
-                    padding-bottom: 30px;
-                }
-            </style>
-        </section>
-
-        <section class="section section-sp" id="section_685348083">
-            <div class="bg section-bg fill bg-fill  bg-loaded">
-
-            </div>
-            <!-- .section-bg -->
-
-            <div class="section-content relative">
-
-                <div class="row" id="row-446504803">
-                    <div class="col div-sp-bottom small-12 large-12">
-                        <div class="col-inner">
-                            <h3 class="" style="text-align: center;" data-css="tve-u-15f6c5454cd"><span
-                                        style="font-size: 150%; color: #f36f21;"><strong>TINH BỘT NGHỆ ĐỎ</strong></span>
-                            </h3>
-                            <div class="row" id="row-1856594723">
-                                <div class="col medium-6 small-12 large-6">
-                                    <div class="col-inner">
-                                        <div class="img has-hover x md-x lg-x y md-y lg-y" id="image_616740649">
-                                            <div class="img-inner dark">
-                                                <img width="800" height="800"
-                                                     src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do-800x800.jpg"
-                                                     class="attachment-large size-large" alt=""
-                                                     srcset="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do-800x800.jpg 800w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do-280x280.jpg 280w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do-400x400.jpg 400w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do-768x768.jpg 768w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do-300x300.jpg 300w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do-600x600.jpg 600w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do-100x100.jpg 100w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-do.jpg 1000w"
-                                                     sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
-
-                                            <style scope="scope">
-                                                #image_616740649 {
-                                                    width: 100%;
-                                                }
-                                            </style>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col medium-6 small-12 large-6">
-                                    <div class="col-inner">
-                                        <p><span style="font-size: 100%;"><strong>Thành Phần</strong>: tinh bột nghệ đỏ 100% Kon Tum.</span>
-                                        </p>
-                                        <p><span style="font-size: 100%;"><strong>Hàm lượng Curcumin</strong>: 10 mg/g (cao gấp 4 lần TBN vàng)</span>
-                                        </p>
-                                        <p><span style="font-size: 100%;">Tinh bột nghệ đỏ Hà Anh Shop thích hợp trong mọi trường hợp từ làm đẹp da, làm mặt nạ tinh bột nghệ, hỗ trợ điều trị đau dạ dày, viêm dạ dày mãn từ nhẹ đến mãn tính, khớp, tim mạch, hỗ trợ trí não. Đặc biệt ngừa ung thư rất tốt.</span>
-                                        </p>
-                                        <p><span style="font-size: 100%;"><strong>+ Giá khuyến mãi&nbsp;</strong><strong>chỉ từ&nbsp;<span
-                                                            style="color: #ed1c24;">550,000đ/500g&nbsp;</span>(miễn phí vận chuyển nội thành HCM)</strong>
-                                        </span>
-                                        </p>
-                                        <p><span style="font-size: 100%;"><strong>+ Mua&nbsp;<span
-                                                            style="color: #ed1c24;">1kg giá 990,000đ&nbsp;​</span></strong>
-                                        </span>
-                                        </p>
-                                        <p>
-                                            <span style="font-size: 100%;"><strong>+ MIỄN PHÍ vận chuyển toàn quốc</strong></span>
-                                        </p>
-                                        <div class="row" id="row-1770767764">
-                                            <div class="col small-12 large-12">
-                                                <div class="col-inner text-center">
-                                                    <a href="#spu-144" target="_self" class="button alert spu-clickable"
-                                                       style="border-radius: 99px; cursor: pointer;">
-                                                        <span>Đặt hàng ngay</span>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- .section-content -->
-
-            <style scope="scope">
-                #section_685348083 {
-                    padding-top: 30px;
-                    padding-bottom: 30px;
-                }
-            </style>
-        </section>
-
-        <section class="section section-sp" id="section_1842207680">
-            <div class="bg section-bg fill bg-fill  bg-loaded">
-
-            </div>
-            <!-- .section-bg -->
-
-            <div class="section-content relative">
-
-                <div class="row" id="row-1796603791">
-                    <div class="col div-sp-bottom small-12 large-12">
-                        <div class="col-inner">
-                            <h3 class="" style="text-align: center;" data-css="tve-u-15f6c5454cd"><span
-                                        style="font-size: 150%; color: #f36f21;"><strong>NANO CURCUMIN</strong></span>
-                            </h3>
-                            <div class="row" id="row-793289244">
-                                <div class="col medium-6 small-12 large-6">
-                                    <div class="col-inner">
-                                        <div class="img has-hover x md-x lg-x y md-y lg-y" id="image_1019509551">
-                                            <div class="img-inner dark">
-                                                <img width="800" height="800"
-                                                     src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu-800x800.jpg"
-                                                     class="attachment-large size-large" alt=""
-                                                     srcset="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu-800x800.jpg 800w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu-280x280.jpg 280w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu-400x400.jpg 400w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu-768x768.jpg 768w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu-300x300.jpg 300w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu-600x600.jpg 600w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu-100x100.jpg 100w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/lon-tinh-bot-nghe-sieu-hap-thu.jpg 1000w"
-                                                     sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
-
-                                            <style scope="scope">
-                                                #image_1019509551 {
-                                                    width: 100%;
-                                                }
-                                            </style>
-                                        </div>
-
-                                        <p><strong>Nano Curcumin&nbsp;</strong>được khuyên dùng trong hỗ trợ điều trị
-                                            ung thư, khớp, tim mạch, gan, phổi, hỗ trợ trí não… Chống oxy hoá cơ thể,
-                                            ngăn ngừa lão hoá.</p>
-                                    </div>
-                                </div>
-                                <div class="col medium-6 small-12 large-6">
-                                    <div class="col-inner">
-                                        <div class="tcb-flex-col">
-                                            <div class="tcb-col tve_empty_dropzone">
-                                                <div class="thrv_wrapper thrv_text_element tve_empty_dropzone">
-                                                    <p>
-                                                        <span style="font-size: 100%;"><strong>Nano Curcumin&nbsp;</strong>được khuyên dùng trong hỗ trợ điều trị ung thư, khớp, tim mạch, gan, phổi, hỗ trợ trí não… Chống oxy hoá cơ thể, ngăn ngừa lão hoá.</span>
+                                            <div class="col medium-6 small-12 large-6">
+                                                <div class="col-inner">
+                                                    <p><span style="font-size: 100%;"><strong>Thành Phần</strong>: {!! $product->getthanhphan() !!}.</span>
                                                     </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tcb-flex-col">
-                                            <div class="tcb-col tve_empty_dropzone">
-                                                <div class="thrv_wrapper thrv_text_element tve_empty_dropzone">
-                                                    <p><span style="font-size: 100%;"><strong>Thành Phần</strong>: Curcumin tinh khiết, tinh bột nghệ đỏ nguyên chất, Piperine và&nbsp;<strong>Nano Curcumin</strong>.</span>
+                                                    <p><span style="font-size: 100%;"> {!! $product->description !!}</span>
+                                                    </p>
+                                                    <p><span style="font-size: 100%;"><strong>+ Giá khuyến mãi&nbsp;</strong><strong>chỉ từ&nbsp;<span
+                                                                        style="color: #ed1c24;">{{number_format($product->price, 0)}}đ/500g&nbsp;</span></strong>
+                                        </span>
+                                                    </p>
+                                                    <p><span style="font-size: 100%;"><strong>+ Mua&nbsp;<span
+                                                                        style="color: #ed1c24;">1kg giá {{ (number_format($product->cost, 0)) }}đ&nbsp;​</span></strong>
+                                        </span>
                                                     </p>
                                                     <p>
-                                                        <span style="font-size: 100%;"><strong>Hàm Lượng Curcumin</strong>: 40 mg/g (gấp 20 lần TBN vàng)</span>
+                                                        <span style="font-size: 100%;"><strong>+ Phí vận chuyển : 40.000 đ toàn quốc</strong></span>
                                                     </p>
-                                                    <p><span style="font-size: 100%;">Sự kết hợp hoàn hảo&nbsp;<strong>Piperine&nbsp;</strong>và&nbsp;<strong>Curcumin&nbsp;</strong>tinh khiết giúp tăng khả năng hấp thu và giảm khả năng đào thải Curcumin trong máu. Tặng khả năng hấp thu so với tinh bột nghệ thường lên đến&nbsp;<strong>2000%</strong></span>
-                                                    </p>
-                                                    <p><span style="font-size: 100%;"><strong>+ Giá niêm yết&nbsp;<s>1,500,000</s>&nbsp;nay khuyến mãi chỉ<span
-                                                                        style="color: #ed1c24;">&nbsp;</span></strong><span
-                                                                    style="color: #ed1c24;"><strong>800,000đ</strong></span><strong>&nbsp;hộp<span
-                                                                        style="color: #ed1c24;">&nbsp;250g.</span></strong></span>
-                                                    </p>
-                                                    <p><span style="font-size: 100%;">​<strong>+&nbsp;Mua 2 lon :<span
-                                                                        style="color: #ed1c24;">&nbsp;1,600,000đ&nbsp;</span></strong>
-                                                    </span>
-                                                    </p>
-                                                    <p data-css="tve-u-160d17df403"><span
-                                                                style="font-size: 100%;"><strong>+&nbsp;Mua 3 lon :&nbsp;<span
-                                                                        style="color: #ed1c24;">2,300,000đ</span></strong>
-                                                    </span>
-                                                    </p>
-                                                    <p><span style="font-size: 100%;">​<strong>+ Mua 4 lon :&nbsp;<span
-                                                                        style="color: #ed1c24;"
-                                                                        data-css="tve-u-160d17dc37a">2,990,000đ</span></strong>
-                                                    </span>
-                                                    </p>
-                                                    <p><span style="font-size: 100%;"><strong>+ MIỄN PHÍ vận chuyển toàn quốc</strong></span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" id="row-67932661">
-                                            <div class="col small-12 large-12">
-                                                <div class="col-inner text-center">
-                                                    <a href="#spu-144" target="_self" class="button alert spu-clickable"
-                                                       style="border-radius: 99px; cursor: pointer;">
-                                                        <span>Đặt hàng ngay</span>
-                                                    </a>
+                                                    <div class="row" id="row-1770767764">
+                                                        <div class="col small-12 large-12">
+                                                            <div class="col-inner text-center">
+                                                                <a href="#spu-144" target="_self" class="button alert spu-clickable"
+                                                                   style="border-radius: 99px; cursor: pointer;">
+                                                                    <span>Đặt hàng ngay</span>
+                                                                </a>
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -694,18 +513,18 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- .section-content -->
+                        <!-- .section-content -->
 
-            <style scope="scope">
-                #section_1842207680 {
-                    padding-top: 30px;
-                    padding-bottom: 30px;
-                }
-            </style>
-        </section>
+                        <style scope="scope">
+                            #section_685348083 {
+                                padding-top: 30px;
+                                padding-bottom: 30px;
+                            }
+                        </style>
+                    </section>
+            @endforeach
+        @endif
+
         <section class="section section-ly-do dark" id="section_1783525081">
             <div class="bg section-bg fill bg-fill  bg-loaded">
 
@@ -788,9 +607,9 @@
                                 <div class="box-image" style="width:81%;">
                                     <div class="">
                                         <img width="1000" height="750"
-                                             src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe.jpg"
+                                             src="{{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe.jpg')}}"
                                              class="attachment- size-" alt=""
-                                             srcset="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe.jpg 1000w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe-533x400.jpg 533w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe-768x576.jpg 768w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe-600x450.jpg 600w"
+                                             srcset="{{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe.jpg')}} 1000w, {{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe-533x400.jpg')}} 533w, {{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe-768x576.jpg')}} 768w, {{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe-600x450.jpg')}} 600w"
                                              sizes="(max-width: 1000px) 100vw, 1000px"></div>
                                 </div>
                                 <!-- box-image -->
@@ -820,9 +639,9 @@
                                 <div class="box-image" style="width:81%;">
                                     <div class="">
                                         <img width="1000" height="750"
-                                             src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe.jpg"
+                                             src="{{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe.jpg')}}"
                                              class="attachment- size-" alt=""
-                                             srcset="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe.jpg 1000w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe-533x400.jpg 533w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe-768x576.jpg 768w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/nguyen-lieu-tinh-bot-nghe-600x450.jpg 600w"
+                                             srcset="{{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe.jpg')}} 1000w, {{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe-533x400.jpg')}} 533w, {{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe-768x576.jpg')}} 768w, {{ asset(SITE_THEME_ASSET.'/images/nguyen-lieu-tinh-bot-nghe-600x450.jpg')}} 600w"
                                              sizes="(max-width: 1000px) 100vw, 1000px"></div>
                                 </div>
                                 <!-- box-image -->
@@ -878,9 +697,9 @@
                             <div class="img has-hover x md-x lg-x y md-y lg-y" id="image_806980489">
                                 <div class="img-inner dark">
                                     <img width="1000" height="667"
-                                         src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/may-lam-lanh.jpg"
+                                         src="{{ asset(SITE_THEME_ASSET.'/images/may-lam-lanh.jpg')}}"
                                          class="attachment-large size-large" alt=""
-                                         srcset="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/may-lam-lanh.jpg 1000w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/may-lam-lanh-600x400.jpg 600w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/may-lam-lanh-768x512.jpg 768w"
+                                         srcset="{{ asset(SITE_THEME_ASSET.'/images/may-lam-lanh.jpg')}} 1000w, {{ asset(SITE_THEME_ASSET.'/images/may-lam-lanh-600x400.jpg')}} 600w, {{ asset(SITE_THEME_ASSET.'/images/may-lam-lanh-768x512.jpg')}} 768w"
                                          sizes="(max-width: 1000px) 100vw, 1000px">
                                 </div>
 
@@ -904,164 +723,6 @@
                     background-color: rgb(244, 244, 218);
                 }
             </style>
-        </section>
-
-        <section class="section" id="section_1961432482">
-            <div class="bg section-bg fill bg-fill  bg-loaded">
-
-            </div>
-            <!-- .section-bg -->
-
-            <div class="section-content relative">
-                <div class="row" id="row-1863885879">
-                    <div class="col small-12 large-12">
-                        <div class="col-inner text-center">
-                            <h3 style="text-align: center;"><span style="font-size: 150%; color: #f36f21;">ĐẶC BIỆT CHỈ CÒN 38 SUẤT TRONG TUẦN NÀY</span>
-                            </h3>
-                            <div class="img has-hover x md-x lg-x y md-y lg-y" id="image_1690075444">
-                                <div class="img-inner dark">
-                                    <img width="800" height="500"
-                                         src="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-an-binh-khuyen-mai-tet.jpg"
-                                         class="attachment-original size-original" alt=""
-                                         srcset="http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-an-binh-khuyen-mai-tet.jpg 800w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-an-binh-khuyen-mai-tet-640x400.jpg 640w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-an-binh-khuyen-mai-tet-768x480.jpg 768w, http://tinhbotnghe.giaodienwebmau.com/wp-content/uploads/2018/05/tinh-bot-nghe-an-binh-khuyen-mai-tet-600x375.jpg 600w"
-                                         sizes="(max-width: 800px) 100vw, 800px">
-                                </div>
-
-                                <style scope="scope">
-                                    #image_1690075444 {
-                                        width: 82%;
-                                    }
-                                </style>
-                            </div>
-
-                            <div class="row row-dem-nguoc" id="row-384933021">
-                                <div class="col medium-4 small-12 large-4">
-                                    <div class="col-inner">
-                                        <div id="timer-118439733" class="ux-timer dark" data-text-plural="s"
-                                             data-text-hour="giờ" data-text-day="Ngày" data-text-week="week"
-                                             data-text-min="Phút" data-text-sec="giây" data-text-hour-p="Giờ"
-                                             data-text-day-p="Ngày" data-text-week-p="" data-text-min-p="Phút"
-                                             data-text-sec-p="Giây" data-countdown="2018/5/27 18:00">
-                                            <span>0<strong>Giờ</strong></span><span>0<strong>Phút</strong></span><span>0<strong>Giây</strong></span>
-                                        </div>
-                                        <style scope="scope">
-                                            #timer-118439733 {
-                                                font-size: 224%;
-                                            }
-                                        </style>
-
-                                        <a href="#spu-144" target="_self" class="button primary spu-clickable"
-                                           style="cursor: pointer;">
-                                            <span>ĐẶT HÀNG NGAY</span>
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                                <style scope="scope">
-
-                                </style>
-                            </div>
-                            <div class="row row-collapse row-divided row-gia-ca" id="row-1216301677">
-                                <div class="col medium-4 small-12 large-4">
-                                    <div class="col-inner">
-                                        <div class="pricing-table-wrapper">
-                                            <div class="pricing-table ux_price_table text-center box-shadow-3-hover">
-                                                <div class="pricing-table-header">
-                                                    <div class="title uppercase strong">Title</div>
-                                                    <div class="price is-xxlarge">$99.99</div>
-                                                </div>
-                                                <div class="pricing-table-items items">
-
-                                                    <p><span style="font-size: 130%;">TINH BỘT NGHỆ VÀNG</span></p>
-                                                    <p style="text-align: center;"><span style="font-size: 140%;">335,000đ/500g</span>
-                                                    </p>
-                                                    <p class="gia-goc">Giá gốc: 610,000 đ/500gr</p>
-                                                    <a href="#spu-144" target="_self" class="button alert spu-clickable"
-                                                       style="cursor: pointer;">
-                                                        <span>Đặt mua ngay</span>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col div-gia-giua medium-4 small-12 large-4">
-                                    <div class="col-inner">
-                                        <div class="pricing-table-wrapper">
-                                            <div class="pricing-table ux_price_table text-center box-shadow-1 box-shadow-3-hover">
-                                                <div class="pricing-table-header">
-                                                    <div class="title uppercase strong">Title</div>
-                                                    <div class="price is-xxlarge">$99.99</div>
-                                                </div>
-                                                <div class="pricing-table-items items">
-
-                                                    <p><span style="font-size: 130%;">TINH BỘT NGHỆ ĐỎ</span></p>
-                                                    <p><span style="font-size: 130%;">(Khuyên dùng)</span></p>
-                                                    <p><span style="font-size: 140%;">550,000đ/500g</span></p>
-                                                    <p class="gia-goc">Giá gốc: 1,110,000 đ/500gr</p>
-                                                    <a href="#spu-144" target="_self" class="button alert spu-clickable"
-                                                       style="cursor: pointer;">
-                                                        <span>Đặt mua ngay</span>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col medium-4 small-12 large-4">
-                                    <div class="col-inner">
-                                        <div class="pricing-table-wrapper">
-                                            <div class="pricing-table ux_price_table text-center box-shadow-3-hover">
-                                                <div class="pricing-table-header">
-                                                    <div class="title uppercase strong">Title</div>
-                                                    <div class="price is-xxlarge">$99.99</div>
-                                                </div>
-                                                <div class="pricing-table-items items">
-
-                                                    <p><span style="font-size: 130%;">TBN SIÊU HẤP THỤ</span></p>
-                                                    <p><span style="font-size: 140%;">800,000đ/250g</span></p>
-                                                    <p class="gia-goc">Giá gốc: 1,500,000 đ/250gr</p>
-                                                    <a href="#spu-144" target="_self" class="button alert spu-clickable"
-                                                       style="cursor: pointer;">
-                                                        <span>Đặt mua ngay</span>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <style scope="scope">
-
-                                </style>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-ban-do row-box-shadow-1-hover" id="row-1741406174">
-                    <div class="col small-12 large-12">
-                        <div class="col-inner">
-                            <p>
-                                <iframe src="{{ $configsGlobal['google_map'] }}"
-                                        width="100%" height="450" frameborder="0" style="border:0"
-                                        allowfullscreen=""></iframe>
-                            </p>
-                        </div>
-                    </div>
-
-                    <style scope="scope">
-
-                    </style>
-                </div>
-            </div>
-            <!-- .section-content -->
         </section>
     </div>
 

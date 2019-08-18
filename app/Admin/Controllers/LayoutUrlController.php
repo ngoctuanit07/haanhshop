@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -98,9 +108,9 @@ class LayoutUrlController extends Controller
         $grid->module('Module');
         $grid->target('Action');
         $grid->group('Group');
-        $grid->status('Status')->switch();
+        $grid->status('Status')->switch()->editable();
         $grid->sort('Sort')->editable();
-        $grid->model()->orderBy('id', 'desc');
+
         return $grid;
     }
 
@@ -133,13 +143,13 @@ class LayoutUrlController extends Controller
     {
         $form = new Form(new LayoutUrl);
 
-        $form->text('name', 'Name')->rules('required');
-        $form->text('url', 'Url')->rules('required');
+        $form->text('name', 'Name');//->rules('required');
+        $form->text('url', 'Url');//->rules('required');
         $form->text('module', 'Module');
         $form->select('target', 'Action')->options($this->arrTarget)->default('_self');
         $form->select('group', 'Group')->options($this->arrGroup)->default('menu');
         $form->switch('status', 'Status')->default(1);
-        $form->number('sort', 'Sort')->rules('numeric|min:0')->default(0);
+        $form->number('sort', 'Sort')->rules('numeric|min:0')->default(1);
 
         return $form;
     }

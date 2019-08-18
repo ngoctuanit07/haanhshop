@@ -1,4 +1,15 @@
 <?php
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 #app/Http/Admin/Controllers/ModulesController.php
 namespace App\Admin\Controllers;
 
@@ -20,9 +31,9 @@ class ModulesController extends Controller
     public function __construct()
     {
         $this->namespaceGroup = [
-            'cms'   => '\App\Modules\Cms\Controllers',
-            'api'   => '\App\Modules\Api\Controllers',
-            'other' => '\App\Modules\Other\Controllers',
+            'Cms'   => '\App\Modules\Cms\Controllers',
+            'Api'   => '\App\Modules\Api\Controllers',
+            'Other' => '\App\Modules\Other\Controllers',
         ];
 
     }
@@ -30,7 +41,7 @@ class ModulesController extends Controller
     {
         $body = $this->modulesGroup($group);
         return $content
-            ->header(trans('Modules/language.manager'))
+            ->header(trans('language.modules.manager'))
             ->description(' ')
             ->body($body);
     }
@@ -45,7 +56,7 @@ class ModulesController extends Controller
         $modulesInstalled = \Helper::getExtensionsGroup($group, $onlyActive = false);
         $modules          = \FindClass::classNames('Modules', $group);
         $namespace        = $this->namespaceGroup[$group];
-        $title            = trans('Modules/language.' . $group);
+        $title            = trans('language.modules.' . $group);
         return $this->render($modulesInstalled, $modules, $namespace, $title, $group);
     }
 

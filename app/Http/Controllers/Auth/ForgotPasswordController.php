@@ -29,6 +29,7 @@ class ForgotPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        parent::__construct();
 
     }
 
@@ -41,9 +42,9 @@ class ForgotPasswordController extends Controller
         if (Auth::user()) {
             return redirect()->route('home');
         }
-        return view(SITE_THEME . '.auth.forgot',
+        return view(SITE_THEME . '.shop_forgot',
             array(
-                'title' => trans('language.forgot_password'),
+                'title' => trans('language.for_got_password'),
             )
         );
     }

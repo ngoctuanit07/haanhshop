@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'title' => 'Thanh toán tiền mặt',
+    'title' => 'Thanh toán khi nhận hàng',
 ];

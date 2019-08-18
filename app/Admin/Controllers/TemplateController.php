@@ -1,4 +1,15 @@
 <?php
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 #app/Http/Admin/Controllers/TemplateController.php
 namespace App\Admin\Controllers;
 
@@ -25,8 +36,8 @@ class TemplateController extends Controller
     {
 
         return $content
-            ->row('<span style="font-size:15px;font-style: italic;">(' . trans('template.guide') . ')</span><br>')
-            ->header(trans('template.manager'))
+            ->row('<span style="font-size:15px;font-style: italic;">(' . trans('language.templates.guide') . ')</span><br>')
+            ->header(trans('language.templates.manager'))
             ->description(' ')
             ->body($this->render());
     }
@@ -51,7 +62,7 @@ class TemplateController extends Controller
         }
         return view('admin.TemplatesManager')->with(
             [
-                "title"           => trans('template.title'),
+                "title"           => trans('language.templates.title'),
                 "templates"       => $arrTemplates,
                 "templateCurrent" => \Helper::configsGlobal()['template'],
             ])->render();

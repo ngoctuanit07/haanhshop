@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Auth;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 
@@ -38,20 +37,13 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        parent::__construct();
     }
 
     public function showResetForm(Request $request, $token = null)
     {
-        if (Auth::user()) {
-            return redirect()->route('home');
-        }
-        return view(SITE_THEME . '.auth.reset',
-            [
-                'title' => trans('language.reset_password'),
-                'token' => $token,
-                'email' => $request->email,
-            ]
+        return view(SITE_THEME . '.auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
         );
-
     }
 }

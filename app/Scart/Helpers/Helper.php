@@ -8,7 +8,6 @@ use App\Models\Layout;
 use App\Models\LayoutUrl;
 use App\Models\ShopCurrency;
 use Illuminate\Support\Facades\Mail;
-use Log;
 
 class Helper
 {
@@ -201,12 +200,7 @@ class Helper
     public static function sendMail($view, $data = array(), $config = array(), $fileAttach = array(), $fileAttachData = array())
     {
         if (!empty(self::configs()['email_action_mode'])) {
-            try {
-                Mail::send(new \App\Mail\SendMail($view, $data, $config, $fileAttach, $fileAttachData));
-            } catch (\Exception $e) {
-                Log::error("Sendmail view:" . $view . PHP_EOL . $e->getMessage());
-            }
-
+            Mail::send(new \App\Mail\SendMail($view, $data, $config, $fileAttach, $fileAttachData));
         } else {
             return false;
         }

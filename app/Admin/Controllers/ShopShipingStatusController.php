@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade System to newer
+ * versions in the future.
+ *
+ * @category    E-commerce
+ * @package     E-commerce
+ * @author      John Nguyen
+ * @copyright   Copyright (c)  John Nguyen
+ */
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -24,7 +34,7 @@ class ShopShipingStatusController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header(trans('order.order_shipping_status'));
+            $content->header(trans('language.order.order_shipping_status'));
             $content->description(' ');
 
             $content->body($this->grid());
@@ -41,7 +51,7 @@ class ShopShipingStatusController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header(trans('order.order_shipping_status'));
+            $content->header(trans('language.order.order_shipping_status'));
             $content->description(' ');
 
             $content->body($this->form()->edit($id));
@@ -57,7 +67,7 @@ class ShopShipingStatusController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header(trans('order.order_shipping_status'));
+            $content->header(trans('language.order.order_shipping_status'));
             $content->description(' ');
 
             $content->body($this->form());

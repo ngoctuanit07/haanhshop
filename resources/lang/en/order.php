@@ -2,7 +2,6 @@
 return [
     'title'                 => 'Order',
     'customer_name'         => 'Customer name',
-    'email'                 => 'Email',
     'customer'              => 'Customer',
     'sub_total'             => 'Sub total',
     'shipping_price'        => 'Shipping price',
@@ -36,13 +35,12 @@ return [
     'currency'              => 'Currency',
     'exchange_rate'         => 'Exchange rate',
     'payment_method'        => 'Payment method',
-    'date'                  => 'Date',
-    'send_mail'             => [
+    'email'                 => [
         'title'     => 'Email',
         'new_title' => 'NEW ORDER',
     ],
 
-    'totals'                => [
+    'total'                 => [
         'sub_total' => 'Sub Total',
         'total'     => 'Total',
         'shipping'  => 'Shipping Fee',
